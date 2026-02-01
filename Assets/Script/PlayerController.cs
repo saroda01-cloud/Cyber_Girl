@@ -4,13 +4,26 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 6f;
+    public float airControlMultiplier = 0.65f; // 공중 제어력
     public float jumpForce = 10f;
+
+    [Header("Jump Assist")]
+    public float coyoteTime = 0.15f;     // 코요테 타임
+    public float jumpBufferTime = 0.15f; // 점프 버퍼
+
+    [Header("Gravity Tuning")]
+    public float fallMultiplier = 2.5f;   // 낙하 가속
+    public float lowJumpMultiplier = 2f;  // 짧은 점프
 
     private int jumpCount = 0;
     private bool isGrounded = false;
     private float moveInput;
     private Rigidbody2D playerRigidbody;
     private bool isDead = false;
+
+    // 보조 변수
+    private float coyoteTimer;
+    private float jumpBufferTimer;
 
     private void Start()
     {
@@ -21,15 +34,34 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
 
+        // 좌우 입력
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
+        // 코요테 타임 처리
+        if (isGrounded)
+            coyoteTimer = coyoteTime;
+        else
+            coyoteTimer -= Time.deltaTime;
+
+        // 점프 버퍼 처리
+        if (Input.GetKeyDown(KeyCode.Space))
+            jumpBufferTimer = jumpBufferTime;
+        else
+            jumpBufferTimer -= Time.deltaTime;
+
+        // 점프 조건 (더블 점프 포함)
+        if (jumpBufferTimer > 0f && (isGrounded || coyoteTimer > 0f || jumpCount < 2))
         {
             jumpCount++;
             playerRigidbody.linearVelocity = new Vector2(playerRigidbody.linearVelocity.x, 0f);
             playerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+            isGrounded = false;
+            coyoteTimer = 0f;
+            jumpBufferTimer = 0f;
         }
 
+        // 가변 점프 (짧은 점프)
         if (Input.GetKeyUp(KeyCode.Space) && playerRigidbody.linearVelocity.y > 0f)
         {
             playerRigidbody.linearVelocity = new Vector2(
@@ -43,7 +75,22 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
 
-        playerRigidbody.linearVelocity = new Vector2(moveInput * moveSpeed, playerRigidbody.linearVelocity.y);
+        // 이동 (공중 제어력 적용)
+        float control = isGrounded ? 1f : airControlMultiplier;
+        playerRigidbody.linearVelocity = new Vector2(
+            moveInput * moveSpeed * control,
+            playerRigidbody.linearVelocity.y
+        );
+
+        // 중력 튜닝
+        if (playerRigidbody.linearVelocity.y < 0)
+        {
+            playerRigidbody.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+        }
+        else if (playerRigidbody.linearVelocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        {
+            playerRigidbody.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -52,6 +99,9 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             jumpCount = 0;
+
+            // 착지 안정화
+            playerRigidbody.linearVelocity = new Vector2(playerRigidbody.linearVelocity.x, 0f);
         }
     }
 
@@ -60,7 +110,6 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
     }
 
-
     public void Die()
     {
         if (isDead) return;
@@ -68,9 +117,6 @@ public class PlayerController : MonoBehaviour
         isDead = true;
         playerRigidbody.linearVelocity = Vector2.zero;
         Debug.Log("Player Died!");
-
-        // 사망 처리
         Destroy(gameObject);
-        // 나중에 애니메이션, 사운드, 게임오버 등 추가
     }
 }

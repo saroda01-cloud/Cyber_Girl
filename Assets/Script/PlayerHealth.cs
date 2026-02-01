@@ -40,7 +40,6 @@ public class PlayerHealth : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //  무적 상태 먼저 체크
         if (isInvincible)
         {
             Debug.Log("Invincible - ignoring damage");
@@ -49,23 +48,20 @@ public class PlayerHealth : MonoBehaviour
 
         if (other.CompareTag("Dead"))
         {
-            Debug.Log($"Hit by {other.gameObject.name}! Current invincible: {isInvincible}");
+            Debug.Log($"Hit by {other.gameObject.name}!");
             TakeDamage();
         }
     }
 
-    void TakeDamage()
+    public void TakeDamage()
     {
-        //  이중 체크
         if (isInvincible)
         {
             Debug.Log("TakeDamage blocked by invincibility");
             return;
         }
 
-        //  즉시 무적 설정 (코루틴 시작 전에!)
         isInvincible = true;
-
         currentHealth--;
         Debug.Log($"Damage taken! Health: {currentHealth}");
 
@@ -78,6 +74,47 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             StartCoroutine(InvincibilityCoroutine());
+        }
+    }
+
+    public void TakeDamageAndRespawn(Transform respawnPoint)
+    {
+        if (isInvincible)
+        {
+            Debug.Log("TakeDamage blocked by invincibility");
+            return;
+        }
+
+        isInvincible = true;
+        currentHealth--;
+        Debug.Log($"Damage taken! Health: {currentHealth}");
+
+        UpdateHealthUI();
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            Respawn(respawnPoint);
+            StartCoroutine(InvincibilityCoroutine());
+        }
+    }
+
+    void Respawn(Transform respawnPoint)
+    {
+        if (respawnPoint != null)
+        {
+            transform.position = respawnPoint.position;
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+
+            Debug.Log("Player respawned!");
         }
     }
 

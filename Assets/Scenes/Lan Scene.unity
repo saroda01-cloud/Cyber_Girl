@@ -352,11 +352,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.17
+      value: 20.14
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.19
+      value: -0.94
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -409,11 +409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.32
+      value: -2.78
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.91
+      value: -5.92
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -652,11 +652,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.48
+      value: 9.89
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.19
+      value: -7.91
       objectReference: {fileID: 0}
     - target: {fileID: 6637364581445814311, guid: 840bbf86928ebfa4384524d8e96d981d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1187,8 +1187,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc539217389cc2e4c97778a1550af14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 6
+  moveSpeed: 8
+  airControlMultiplier: 0.65
   jumpForce: 10
+  coyoteTime: 0.15
+  jumpBufferTime: 0.15
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
 --- !u!114 &1239529722
 MonoBehaviour:
   m_ObjectHideFlags: 0
