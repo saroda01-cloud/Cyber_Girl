@@ -21,15 +21,14 @@ public class OneWayPlatform : MonoBehaviour
         Physics2D.IgnoreCollision(playerCollider, platformCollider, true);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        float playerBottom = playerCollider.bounds.min.y;   // 발 위치
-        float platformTop = platformCollider.bounds.max.y;  // 발판 윗면
+        float playerBottom = playerCollider.bounds.min.y;
+        float platformTop = platformCollider.bounds.max.y;
 
         bool isAbove = playerBottom >= platformTop - tolerance;
         bool isFalling = playerRb.linearVelocity.y <= 0f;
 
-        // 충돌 허용 조건: 위에 있음 + 아래로 이동
         if (isAbove && isFalling)
         {
             if (isIgnoring)
@@ -40,7 +39,6 @@ public class OneWayPlatform : MonoBehaviour
         }
         else
         {
-            //  나머지는 전부 통과
             if (!isIgnoring)
             {
                 Physics2D.IgnoreCollision(playerCollider, platformCollider, true);
