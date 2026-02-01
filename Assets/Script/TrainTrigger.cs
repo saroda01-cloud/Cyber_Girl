@@ -12,6 +12,8 @@ public class TrainTrigger : MonoBehaviour
     public string attackCode = "TRAIN";
     public float warningTime = 3f;
     public bool fromLeft = true; // true면 좌→우, false면 우→좌
+    public float trainSpeed = 20f; // 열차 속도를 여기서 설정
+
 
     private bool isTriggered = false;
     private float timer = 0f;
@@ -122,7 +124,7 @@ public class TrainTrigger : MonoBehaviour
         Train script = train.GetComponentInChildren<Train>();
         if (script != null)
         {
-            script.SetTarget(endX, fromLeft);
+            script.SetTarget(endX, fromLeft, trainSpeed); // 속도 전달!
         }
         else
         {

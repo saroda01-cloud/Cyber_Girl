@@ -13,6 +13,8 @@ public class AttackTrigger : MonoBehaviour
     public float warningTime = 5f;
     public float attackXOffset = 0f;
     public float cameraSize = 5f; // 카메라 사이즈 고정값
+    public float boxSpeed = 10f; //박스 속도를 여기서 설정!
+
 
     private bool isTriggered = false;
     private float timer = 0f;
@@ -103,7 +105,7 @@ public class AttackTrigger : MonoBehaviour
         Attack script = attack.GetComponent<Attack>();
         if (script != null)
         {
-            script.SetTarget(endY);
+            script.SetTarget(endY, boxSpeed); // 속도 전달!
         }
     }
 }

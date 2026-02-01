@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    public float riseSpeed = 10f;
+    private float riseSpeed = 10f;
 
     private float targetY;
     private bool rising = true;
     private bool hasTarget = false;
 
-    public void SetTarget(float stopCenterY)
+    public void SetTarget(float stopCenterY, float speed) //  속도 파라미터 추가
     {
         targetY = stopCenterY;
+        riseSpeed = speed; //  속도 설정
         hasTarget = true;
+        Debug.Log($"[Attack] Target Set! Y: {transform.position.y} → {targetY}, Speed: {riseSpeed}");
     }
 
     void Update()

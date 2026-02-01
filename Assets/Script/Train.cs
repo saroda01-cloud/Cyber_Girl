@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class Train : MonoBehaviour
 {
-    public float moveSpeed = 20f; // 빠른 속도
+    private float moveSpeed = 20f; // 빠른 속도
 
     private float targetX;
     private bool movingRight;
     private bool hasTarget = false;
 
-    public void SetTarget(float endX, bool isMovingRight)
+    public void SetTarget(float endX, bool isMovingRight, float speed) // 속도 파라미터 추가
     {
         targetX = endX;
         movingRight = isMovingRight;
+        moveSpeed = speed; //  속도 설정
         hasTarget = true;
 
         Debug.Log($"[Train] Target set! Current X: {transform.position.x}, Target X: {targetX}, Moving Right: {movingRight}");
