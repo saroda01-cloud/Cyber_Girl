@@ -68,10 +68,16 @@ public class PlayerController : MonoBehaviour
             Die();
         }
     }
-    private void Die()
+    public void Die()//사망 애니메이션 사운드 등 나중에 추가
     {
+        if (isDead) return; // 이미 죽었으면 무시
+
         isDead = true;
         playerRigidbody.linearVelocity = Vector2.zero;
         Debug.Log("Player Died!");
+
+        // 사망 처리 추가
+        Destroy(gameObject);
+        // 또는 애니메이션, 게임오버 등
     }
 }
