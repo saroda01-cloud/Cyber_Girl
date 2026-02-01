@@ -19,14 +19,11 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI")]
     public GameObject[] healthIcons;
 
-    //  PlayerController 참조 추가
     private PlayerController playerController;
 
     void Start()
     {
         currentHealth = maxHealth;
-
-        // PlayerController 가져오기
         playerController = GetComponent<PlayerController>();
 
         if (playerSprite == null)
@@ -43,18 +40,34 @@ public class PlayerHealth : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Dead") && !isInvincible)
+        //  무적 상태 먼저 체크
+        if (isInvincible)
         {
+            Debug.Log("Invincible - ignoring damage");
+            return;
+        }
+
+        if (other.CompareTag("Dead"))
+        {
+            Debug.Log($"Hit by {other.gameObject.name}! Current invincible: {isInvincible}");
             TakeDamage();
         }
     }
 
     void TakeDamage()
     {
-        if (isInvincible) return;
+        //  이중 체크
+        if (isInvincible)
+        {
+            Debug.Log("TakeDamage blocked by invincibility");
+            return;
+        }
+
+        //  즉시 무적 설정 (코루틴 시작 전에!)
+        isInvincible = true;
 
         currentHealth--;
-        Debug.Log($"Hit! Current Health: {currentHealth}");
+        Debug.Log($"Damage taken! Health: {currentHealth}");
 
         UpdateHealthUI();
 
@@ -70,7 +83,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator InvincibilityCoroutine()
     {
-        isInvincible = true;
+        Debug.Log("Invincibility started!");
         float elapsed = 0f;
 
         while (elapsed < invincibleTime)
@@ -106,14 +119,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        //  PlayerController의 Die() 호출
         if (playerController != null)
         {
             playerController.Die();
         }
         else
         {
-            // PlayerController가 없으면 직접 처리
             Debug.Log("Player Died!");
             Destroy(gameObject);
         }

@@ -53,8 +53,6 @@ public class Train : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player hit by train!");
-            // TODO: 플레이어 사망 처리 추가
-            Destroy(other.gameObject);
         }
     }
 }

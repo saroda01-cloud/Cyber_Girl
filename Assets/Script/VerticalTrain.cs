@@ -1,0 +1,52 @@
+using UnityEngine;
+
+public class VerticalTrain : MonoBehaviour
+{
+    private float moveSpeed;
+    private float targetY;
+    private bool movingUp;
+    private bool hasTarget = false;
+
+    public void SetTarget(float endY, bool isMovingUp, float speed)
+    {
+        targetY = endY;
+        movingUp = isMovingUp;
+        moveSpeed = speed;
+        hasTarget = true;
+
+        Debug.Log($"[VerticalTrain] Target set! Y: {transform.position.y} ¡æ {targetY}, Speed: {moveSpeed}");
+    }
+
+    void Update()
+    {
+        if (!hasTarget) return;
+
+        if (movingUp)
+        {
+            transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
+
+            if (transform.position.y >= targetY)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            transform.Translate(Vector2.down * moveSpeed * Time.deltaTime);
+
+            if (transform.position.y <= targetY)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player hit by vertical train!");
+            // PlayerHealth°¡ Ã³¸®
+        }
+    }
+}
