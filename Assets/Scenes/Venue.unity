@@ -3524,11 +3524,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogSystem
   speakers:
   - spriteRenderer: {fileID: 149523297}
+    animator: {fileID: 149523299}
     imageDialog: {fileID: 511363397}
     textDialogue: {fileID: 1910391548}
     imageDialogueSprite: {fileID: 979775721}
     objectArrow: {fileID: 1484554303}
   - spriteRenderer: {fileID: 1715841570}
+    animator: {fileID: 1715841567}
     imageDialog: {fileID: 550103316}
     textDialogue: {fileID: 1747809854}
     imageDialogueSprite: {fileID: 569475318}
@@ -3538,18 +3540,21 @@ MonoBehaviour:
     name: 
     dialogue: 123
     dialogueSprite: {fileID: 0}
+    expression: 0
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 1
     name: 
     dialogue: qwe
     dialogueSprite: {fileID: 0}
+    expression: 0
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 0
     name: 
     dialogue: qwe
     dialogueSprite: {fileID: 0}
+    expression: 0
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   isAutoStart: 1
@@ -3792,11 +3797,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogSystem
   speakers:
   - spriteRenderer: {fileID: 149523297}
+    animator: {fileID: 149523299}
     imageDialog: {fileID: 511363397}
     textDialogue: {fileID: 1910391548}
     imageDialogueSprite: {fileID: 979775721}
     objectArrow: {fileID: 1484554303}
   - spriteRenderer: {fileID: 1715841570}
+    animator: {fileID: 1715841567}
     imageDialog: {fileID: 550103316}
     textDialogue: {fileID: 1747809854}
     imageDialogueSprite: {fileID: 569475318}
@@ -3806,12 +3813,14 @@ MonoBehaviour:
     name: 
     dialogue: 
     dialogueSprite: {fileID: 21300000, guid: 5f7a5f12b44528b4f9a5e4f7ae1b059e, type: 3}
+    expression: 2
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 0
     name: 
     dialogue: Apple
     dialogueSprite: {fileID: 0}
+    expression: 1
     sceneSpriteRenderer: {fileID: 655032508}
     sceneSpriteVisibleOnlyThisLine: 1
   isAutoStart: 1
@@ -4578,7 +4587,7 @@ MonoBehaviour:
   talkTarget: {fileID: 1715841571}
   startDistance: 3
   use2DDistance: 1
-  currentDay: 2
+  currentDay: 1
   dialogsByDay:
   - {fileID: 1180240436}
   - {fileID: 2007467573}
@@ -4766,11 +4775,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogSystem
   speakers:
   - spriteRenderer: {fileID: 149523297}
+    animator: {fileID: 149523299}
     imageDialog: {fileID: 511363397}
     textDialogue: {fileID: 1910391548}
     imageDialogueSprite: {fileID: 979775721}
     objectArrow: {fileID: 1484554303}
   - spriteRenderer: {fileID: 1715841570}
+    animator: {fileID: 1715841567}
     imageDialog: {fileID: 550103316}
     textDialogue: {fileID: 1747809854}
     imageDialogueSprite: {fileID: 569475318}
@@ -4780,18 +4791,21 @@ MonoBehaviour:
     name: 
     dialogue: 123
     dialogueSprite: {fileID: 0}
-    sceneSpriteRenderer: {fileID: 0}
-    sceneSpriteVisibleOnlyThisLine: 0
+    expression: 0
+    sceneSpriteRenderer: {fileID: 1669569473}
+    sceneSpriteVisibleOnlyThisLine: 1
   - speakerIndex: 1
     name: 
-    dialogue: 
-    dialogueSprite: {fileID: 21300000, guid: 5f7a5f12b44528b4f9a5e4f7ae1b059e, type: 3}
+    dialogue: thankyou
+    dialogueSprite: {fileID: 0}
+    expression: 0
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 0
     name: 
     dialogue: 1232
     dialogueSprite: {fileID: 0}
+    expression: 0
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   isAutoStart: 1

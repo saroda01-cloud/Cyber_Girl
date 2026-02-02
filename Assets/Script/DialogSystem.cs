@@ -1,7 +1,8 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using static DialogSystem;
 
 public class DialogSystem : MonoBehaviour
 {
@@ -83,6 +84,19 @@ public class DialogSystem : MonoBehaviour
         return false;
     }
 
+    private const string AnimatorParamExpression = "exPression";
+    private void ApplyExpressionForLine(int lineIndex)
+    {
+        if (lineIndex < 0 || dialogs == null || lineIndex >= dialogs.Length) return;
+
+        int speakerIndex = dialogs[lineIndex].speakerIndex;
+        if (speakerIndex < 0 || speakerIndex >= speakers.Length) return;
+
+        Animator anim = speakers[speakerIndex].animator;
+        if (anim == null) return;
+
+        anim.SetInteger(AnimatorParamExpression, (int)dialogs[lineIndex].expression);
+    }
     private void SetNextDialog()
     {
         // 이전 화자 UI 끄기
@@ -98,6 +112,9 @@ public class DialogSystem : MonoBehaviour
 
         // 현재 화자 설정
         currentSpeakerIndex = dialogs[currentDialogIndex].speakerIndex;
+
+        // 표정 적용    
+        ApplyExpressionForLine(currentDialogIndex);
 
         // 현재 화자 UI 켜기
         SetActiveObjects(speakers[currentSpeakerIndex], true);
@@ -161,6 +178,7 @@ public class DialogSystem : MonoBehaviour
         speaker.objectArrow.SetActive(false);
     }
 
+
     private IEnumerator OnTypingText()
     {
         int index = 0;
@@ -200,12 +218,22 @@ public class DialogSystem : MonoBehaviour
     {
         useSpriteDialogue = value;
     }
+    public enum FaceExpression
+    {
+        Idle = 0,
+        Surprise = 1,
+        Happy = 2,
+        Sick = 3,
+        Question = 4
+    }
+
 }
 
 [System.Serializable]
 public struct Speaker
 {
     public SpriteRenderer spriteRenderer;
+    public Animator animator;
     public Image imageDialog;
     public TextMeshProUGUI textDialogue;
     public Image imageDialogueSprite;
@@ -222,6 +250,10 @@ public struct DialogData
     public string dialogue;                     // 대사(텍스트)
 
     public Sprite dialogueSprite;               // Day1~2에서 사용할 대사 스프라이트 (없으면 텍스트로 폴백)
+
+    [Header("표정(Animator)")]
+    public FaceExpression expression;
+
     [Header("씬 스프라이트(선택)")]
     public SpriteRenderer sceneSpriteRenderer;        // 씬에 있는 스프라이트 참조
     public bool sceneSpriteVisibleOnlyThisLine;
