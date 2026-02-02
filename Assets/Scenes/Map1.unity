@@ -1622,6 +1622,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: VerticalWall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5453636344170402816, guid: 90e561cad991f4d4ca65f5e345e7ec80, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5453636344170402816, guid: 90e561cad991f4d4ca65f5e345e7ec80, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -862143373
+      objectReference: {fileID: 0}
     - target: {fileID: 7548183326318621151, guid: 90e561cad991f4d4ca65f5e345e7ec80, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.9384
