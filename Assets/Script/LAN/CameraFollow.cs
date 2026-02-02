@@ -103,6 +103,9 @@ public class CameraFollowWithConstraint : MonoBehaviour
 
     void LateUpdate()
     {
+        // enabled가 false면 실행 안 함
+        if (!enabled) return;
+
         if (backgroundReference == null || player == null) return;
 
         Vector3 targetPosition = player.position + offset;
