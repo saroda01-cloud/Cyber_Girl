@@ -160,7 +160,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         Debug.Log("Player Died! 체력 회복 후 맵 시작점으로 리스폰");
 

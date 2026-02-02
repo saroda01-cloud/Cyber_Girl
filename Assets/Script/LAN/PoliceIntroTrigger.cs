@@ -3,18 +3,18 @@ using UnityEngine;
 public class PoliceIntroTrigger : MonoBehaviour
 {
     [Header("수동 설정 필요")]
-    [SerializeField] private Transform policeTarget; // Police 자식 오브젝트
+    [SerializeField] private Transform policeTarget;
     [SerializeField] private MovingWall movingWall;
 
     private CameraFollowWithConstraint cameraFollow;
     private Transform player;
+    private PlayerController playerController; // 플레이어 컨트롤러 참조 추가
 
     [Header("Zoom Settings")]
-    [SerializeField] private float zoomInSize = 4f; // 경찰 클로즈업 크기
-    [SerializeField] private float zoomInDuration = 2f; // 줌인 시간
-    [SerializeField] private float showDuration = 2f; // 경찰 보여주는 시간
-    [SerializeField] private float zoomOutDuration = 1f; // 줌아웃 시간
-
+    [SerializeField] private float zoomInSize = 4f;
+    [SerializeField] private float zoomInDuration = 2f;
+    [SerializeField] private float showDuration = 2f;
+    [SerializeField] private float zoomOutDuration = 1f;
 
     private Camera cam;
     private bool hasTriggered = false;
@@ -26,7 +26,12 @@ public class PoliceIntroTrigger : MonoBehaviour
         // 자동으로 찾기
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                player = playerObj.transform;
+                playerController = playerObj.GetComponent<PlayerController>(); // PlayerController 가져오기
+            }
         }
 
         if (cameraFollow == null)
@@ -46,7 +51,13 @@ public class PoliceIntroTrigger : MonoBehaviour
 
     System.Collections.IEnumerator PoliceIntroSequence()
     {
-        // 1. 카메라 따라가기 비활성화
+        // 1. 플레이어 이동 막기
+        if (playerController != null)
+        {
+            playerController.SetMovementEnabled(false);
+        }
+
+        // 2. 카메라 따라가기 비활성화
         if (cameraFollow != null)
         {
             cameraFollow.enabled = false;
@@ -55,30 +66,36 @@ public class PoliceIntroTrigger : MonoBehaviour
         float originalSize = cam.orthographicSize;
         Vector3 originalPos = cam.transform.position;
 
-        // 2. 경찰 위치로 줌인
+        // 3. 경찰 위치로 줌인
         yield return StartCoroutine(MoveAndZoomCamera(
             policeTarget.position + new Vector3(0, 0, -10),
             zoomInSize,
             zoomInDuration
         ));
 
-        // 3. 경찰 보여주기
+        // 4. 경찰 보여주기
         yield return new WaitForSeconds(showDuration);
 
-        // 4. 플레이어로 복귀
+        // 5. 플레이어로 복귀
         yield return StartCoroutine(MoveAndZoomCamera(
             player.position + new Vector3(0, 0, -10),
             originalSize,
             zoomOutDuration
         ));
 
-        // 5. 카메라 따라가기 재활성화
+        // 6. 카메라 따라가기 재활성화
         if (cameraFollow != null)
         {
             cameraFollow.enabled = true;
         }
 
-        // 6. 밀리는 벽 시작
+        // 7. 플레이어 이동 재활성화
+        if (playerController != null)
+        {
+            playerController.SetMovementEnabled(true);
+        }
+
+        // 8. 밀리는 벽 시작
         if (movingWall != null)
         {
             movingWall.StartMoving();
@@ -95,8 +112,6 @@ public class PoliceIntroTrigger : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-
-            // Smooth easing
             t = t * t * (3f - 2f * t);
 
             cam.transform.position = Vector3.Lerp(startPos, targetPos, t);

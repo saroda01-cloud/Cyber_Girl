@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (isDead) return;
+        if (isDead || !movementEnabled) return; // movementEnabled 체크 추가
 
         // 좌우 입력
         moveInput = Input.GetAxisRaw("Horizontal");
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (isDead) return;
+        if (isDead || !movementEnabled) return; // movementEnabled 체크 추가
 
         if (dialogTest != null && dialogTest.IsInTalkRange)
         {
@@ -117,6 +117,18 @@ public class PlayerController : MonoBehaviour
         else if (playerRigidbody.linearVelocity.y > 0 && !Input.GetKey(KeyCode.Space))
         {
             playerRigidbody.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+        }
+    }
+    private bool movementEnabled = true;
+
+    public void SetMovementEnabled(bool enabled)
+    {
+        movementEnabled = enabled;
+
+        // 이동 비활성화 시 속도 0으로
+        if (!enabled && playerRigidbody != null)
+        {
+            playerRigidbody.linearVelocity = Vector2.zero;
         }
     }
 

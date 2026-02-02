@@ -3,17 +3,34 @@ using UnityEngine;
 public class MovingWall : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 7f; // Inspector에서 조정 가능
-    [SerializeField] private bool isMoving = false; // 처음엔 멈춰있음
+    [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private bool isMoving = false;
 
     [Header("Push Settings")]
-    [SerializeField] private float pushForce = 10f; // 플레이어를 미는 힘
+    [SerializeField] private float pushForce = 10f;
+
+    void Start()
+    {
+        // 자식 오브젝트들에도 충돌 감지 추가
+        WallCollisionDetector[] childDetectors = GetComponentsInChildren<WallCollisionDetector>();
+        if (childDetectors.Length == 0)
+        {
+            // 자식들에게 감지 스크립트 추가
+            foreach (Transform child in transform)
+            {
+                if (child.GetComponent<Collider2D>() != null)
+                {
+                    WallCollisionDetector detector = child.gameObject.AddComponent<WallCollisionDetector>();
+                    detector.parentWall = this;
+                }
+            }
+        }
+    }
 
     void Update()
     {
         if (isMoving)
         {
-            // 오른쪽으로 계속 이동
             transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
         }
     }
@@ -29,16 +46,38 @@ public class MovingWall : MonoBehaviour
         isMoving = false;
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        HandlePlayerCollision(collision.gameObject);
+    }
+
+    // 외부에서도 호출 가능하도록 public으로
+    public void HandlePlayerCollision(GameObject obj)
+    {
+        if (obj.CompareTag("Player"))
         {
-            // 플레이어를 오른쪽으로 밀기
-            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (playerRb != null)
+            Debug.Log("플레이어가 밀리는 벽에 닿았습니다! 즉사!");
+
+            PlayerHealth playerHealth = obj.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
             {
-                playerRb.AddForce(Vector2.right * pushForce, ForceMode2D.Force);
+                playerHealth.Die();
             }
+        }
+    }
+}
+
+// 자식 오브젝트용 충돌 감지 스크립트 (새 파일로 만들어도 되고, 같은 파일 안에 넣어도 됨)
+public class WallCollisionDetector : MonoBehaviour
+{
+    [HideInInspector] public MovingWall parentWall;
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (parentWall != null)
+        {
+            Debug.Log($"자식 {gameObject.name}이(가) 충돌 감지!");
+            parentWall.HandlePlayerCollision(collision.gameObject);
         }
     }
 }
