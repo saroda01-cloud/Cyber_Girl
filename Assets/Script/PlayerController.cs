@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Assist")]
     public float coyoteTime = 0.15f;
     public float jumpBufferTime = 0.15f;
+    public float minJumpTime = 0.2f; // 최소 점프 시간 추가!
+    private float jumpStartTime = 0f; // 점프 시작 시간 추가
+
 
     [Header("Gravity Tuning")]
     public float fallMultiplier = 2.5f;
@@ -40,7 +43,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
     private void Update()
     {
         if (isDead) return;
@@ -69,21 +71,26 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             coyoteTimer = 0f;
             jumpBufferTimer = 0f;
+
+            jumpStartTime = Time.time; // 점프 시작 시간 기록
         }
 
-        // 가변 점프 (짧은 점프)
+        // 가변 점프 (최소 시간 후에만 적용)
         if (Input.GetKeyUp(KeyCode.Space) && playerRigidbody.linearVelocity.y > 0f)
         {
-            playerRigidbody.linearVelocity = new Vector2(
-                playerRigidbody.linearVelocity.x,
-                playerRigidbody.linearVelocity.y * 0.5f
-            );
+            // 최소 점프 시간이 지났을 때만 짧은 점프 적용
+            if (Time.time - jumpStartTime >= minJumpTime)
+            {
+                playerRigidbody.linearVelocity = new Vector2(
+                    playerRigidbody.linearVelocity.x,
+                    playerRigidbody.linearVelocity.y * 0.5f
+                );
+            }
         }
 
         // 애니메이션 업데이트
         UpdateAnimation();
     }
-
     private void FixedUpdate()
     {
         if (isDead) return;

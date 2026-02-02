@@ -1,19 +1,24 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class TrainTrigger : MonoBehaviour
 {
     [Header("References")]
     public GameObject trainPrefab;
     public TextMeshProUGUI codeText;
-    public Transform trainStarter; // 기차가 지나갈 Y 높이를 지정하는 오브젝트
+    public Transform trainStarter;
+
+    [Header("Sound Settings")]
+    public AudioSource audioSource;
+    public AudioClip trainSoundClip;
+    public float soundStartEarly = 1f; // 기차 나오기 몇 초 전에 소리 시작
 
     [Header("Settings")]
     public string attackCode = "TRAIN";
     public float warningTime = 3f;
-    public bool fromLeft = true; // true면 좌→우, false면 우→좌
-    public float trainSpeed = 20f; // 열차 속도를 여기서 설정
-
+    public bool fromLeft = true;
+    public float trainSpeed = 20f;
 
     private bool isTriggered = false;
     private float timer = 0f;
@@ -32,12 +37,10 @@ public class TrainTrigger : MonoBehaviour
         if (isWarning)
         {
             timer += Time.deltaTime;
-
             if (codeText != null)
             {
                 codeText.text = attackCode + "\n" + (warningTime - timer).ToString("F1") + "s";
             }
-
             if (timer >= warningTime)
             {
                 SpawnTrain();
@@ -55,16 +58,40 @@ public class TrainTrigger : MonoBehaviour
         if (other.CompareTag("Player") && !isTriggered)
         {
             isTriggered = true;
-            StartWarning();
+            StartCoroutine(TrainSequence());
             GetComponent<Collider2D>().enabled = false;
         }
+    }
+
+    private IEnumerator TrainSequence()
+    {
+        // 1. 경고 시작
+        StartWarning();
+
+        // 2. 기차 소리 시작할 타이밍까지 대기 (warningTime - soundStartEarly)
+        float waitTimeForSound = warningTime - soundStartEarly;
+        if (waitTimeForSound > 0)
+        {
+            yield return new WaitForSeconds(waitTimeForSound);
+        }
+
+        // 3. 기차 소리 재생 (기차 나오기 1초 전)
+        if (audioSource != null && trainSoundClip != null)
+        {
+            audioSource.PlayOneShot(trainSoundClip);
+            Debug.Log("기차 소리 시작!");
+        }
+
+        // 4. soundStartEarly 시간만큼 더 기다린 후 기차 생성
+        yield return new WaitForSeconds(soundStartEarly);
+
+        // 기존 SpawnTrain은 Update에서 처리되므로 여기서는 생략
     }
 
     void StartWarning()
     {
         isWarning = true;
         timer = 0f;
-
         if (codeText != null)
         {
             codeText.gameObject.SetActive(true);
@@ -87,21 +114,20 @@ public class TrainTrigger : MonoBehaviour
 
         Vector3 tempPos = new Vector3(-1000, -1000, 0);
         GameObject train = Instantiate(trainPrefab, tempPos, Quaternion.identity);
+
         SpriteRenderer sr = train.GetComponentInChildren<SpriteRenderer>();
         float trainWidth = sr != null ? sr.bounds.size.x : 5f;
 
         float startX, endX;
         if (fromLeft)
         {
-            // 왼쪽에서 시작 → 오른쪽 끝 + 기차 전체 길이만큼 더 가야 사라짐
             startX = cameraLeftX - trainWidth;
-            endX = cameraRightX + trainWidth;  // 기차 전체가 화면 밖으로
+            endX = cameraRightX + trainWidth;
         }
         else
         {
-            // 오른쪽에서 시작 → 왼쪽 끝 - 기차 전체 길이
             startX = cameraRightX + trainWidth;
-            endX = cameraLeftX - trainWidth;  // 기차 전체가 화면 밖으로
+            endX = cameraLeftX - trainWidth;
         }
 
         float trainY = trainStarter.position.y;
@@ -111,7 +137,6 @@ public class TrainTrigger : MonoBehaviour
         if (script != null)
         {
             script.SetTarget(endX, fromLeft, trainSpeed);
-            Debug.Log($"[TrainTrigger] Train 목표: {endX}, 거리: {Mathf.Abs(endX - startX)}");
         }
         else
         {
