@@ -3022,7 +3022,7 @@ Transform:
   m_GameObject: {fileID: 570081857}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28, y: -13.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4426,8 +4426,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: new
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8739c7497d14ce941b15160196541ef4, type: 2}
+  m_sharedMaterial: {fileID: 67876896452154836, guid: 8739c7497d14ce941b15160196541ef4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4587,7 +4587,7 @@ MonoBehaviour:
   talkTarget: {fileID: 1715841571}
   startDistance: 3
   use2DDistance: 1
-  currentDay: 1
+  currentDay: 2
   dialogsByDay:
   - {fileID: 1180240436}
   - {fileID: 2007467573}
@@ -4667,8 +4667,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: new
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8739c7497d14ce941b15160196541ef4, type: 2}
+  m_sharedMaterial: {fileID: 67876896452154836, guid: 8739c7497d14ce941b15160196541ef4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
