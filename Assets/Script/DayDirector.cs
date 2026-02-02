@@ -6,15 +6,19 @@ public class DayDirector : MonoBehaviour
     [Header("필수 연결")]
     [SerializeField] private DialogTest dialogTest;
     [SerializeField] private Rigidbody2D playerRigidbody;
+    [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Rigidbody2D NPCRigidbody;
+    [SerializeField] private Animator NPCAnimator;
+    [SerializeField] private SpriteRenderer NPCSprite;
 
-    [Header("Day2 카메라 parent 대상(= gameobject의 자식 Transform)")]
+
+   [Header("Day2 카메라 parent 대상(= gameobject의 자식 Transform)")]
     // 예: NPC 아래에 빈 오브젝트 CameraAnchor 만들어두고 그 Transform 넣기
     [SerializeField] private Transform day2CameraParent;
 
     [Header("Day2 플레이어 자동 이동")]
-    [SerializeField] private float playerMoveSpeedLeft = 3f;  // 왼쪽 이동 속도
+    [SerializeField] private float playerMoveSpeedX = 3f;  // 왼쪽 이동 속도
     [SerializeField] private float playerMoveDuration = 2f;   // 몇 초 이동할지
 
     [Header("Day2 카메라 로컬 이동(오른쪽으로 조금)")]
@@ -22,7 +26,7 @@ public class DayDirector : MonoBehaviour
     [SerializeField] private float cameraMoveTime = 0.25f; // 부드럽게 이동 시간(원하면 0으로 즉시)
 
     [Header("Day2 NPC 자동 이동")]
-    [SerializeField] private float NPCMoveSpeedLeft = -3f;  // 오른쪽 이동 속도
+    [SerializeField] private float NPCMoveSpeedX = -3f;  // 오른쪽 이동 속도
     [SerializeField] private float NPCMoveDuration = 2f;   // 몇 초 이동할지
 
     private bool day2Played = false;
@@ -73,11 +77,13 @@ public class DayDirector : MonoBehaviour
     }
     private IEnumerator MovePlayerForSeconds(float seconds)
     {
+        if (playerSprite != null)
+            playerSprite.flipX = (playerMoveSpeedX < 0f);
         float t = 0f;
 
         while (t < seconds)
         {
-            Vector2 nextPos = playerRigidbody.position + Vector2.left * playerMoveSpeedLeft * Time.fixedDeltaTime;
+            Vector2 nextPos = playerRigidbody.position + Vector2.right * playerMoveSpeedX * Time.fixedDeltaTime;
             playerRigidbody.MovePosition(nextPos);
 
             t += Time.fixedDeltaTime;
@@ -124,18 +130,30 @@ public class DayDirector : MonoBehaviour
             camTr.localPosition = end;
         }
 
-        // NPC 이동 (옵션)
+        // NPC 이동
         if (NPCRigidbody != null)
         {
+            // NPC 방향(실제 이동 방향 기준)
+            if (NPCSprite != null)
+                NPCSprite.flipX = (NPCMoveSpeedX < 0f);
+
+            // 걷기 애니메이션 ON
+            if (NPCAnimator != null)
+                NPCAnimator.SetBool("isWalk", true);
+
             float t2 = 0f;
             while (t2 < NPCMoveDuration)
             {
-                Vector2 nextPos = NPCRigidbody.position + Vector2.left * NPCMoveSpeedLeft * Time.fixedDeltaTime;
+                Vector2 nextPos = NPCRigidbody.position + Vector2.right * NPCMoveSpeedX * Time.fixedDeltaTime;
                 NPCRigidbody.MovePosition(nextPos);
 
                 t2 += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
+
+            // 걷기 애니메이션 OFF
+            if (NPCAnimator != null)
+                NPCAnimator.SetBool("isWalk", false);
 
             NPCRigidbody.linearVelocity = Vector2.zero;
             NPCRigidbody.angularVelocity = 0f;

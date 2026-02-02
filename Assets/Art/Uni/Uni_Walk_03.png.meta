@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6a828dd0f6f33934daaffca0354db16e
+guid: 87e7a4709e7ce26408f9fa64b3f0e9a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2582263326591293535
-    second: male_dot_4_0
+      213: -7588279114011583369
+    second: Uni_Walk_03_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: male_dot_4_0
+      name: Uni_Walk_03_0
       rect:
         serializedVersion: 2
-        x: 163
-        y: 30
-        width: 213
-        height: 417
+        x: 100
+        y: 6
+        width: 300
+        height: 464
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f581ef960da06d320800000000000000
-      internalID: 2582263326591293535
+      spriteID: 77cd2d8a95401b690800000000000000
+      internalID: -7588279114011583369
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      male_dot_4_0: 2582263326591293535
+      Uni_Walk_03_0: -7588279114011583369
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

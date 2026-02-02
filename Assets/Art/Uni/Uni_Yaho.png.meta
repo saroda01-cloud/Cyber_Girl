@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6a828dd0f6f33934daaffca0354db16e
+guid: 71c2efcee7eeafe4e98e5442e1221fc5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2582263326591293535
-    second: male_dot_4_0
+      213: 6577044060503301960
+    second: Uni_Yaho_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: male_dot_4_0
+      name: Uni_Yaho_0
       rect:
         serializedVersion: 2
-        x: 163
-        y: 30
-        width: 213
-        height: 417
+        x: 108
+        y: 22
+        width: 292
+        height: 456
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f581ef960da06d320800000000000000
-      internalID: 2582263326591293535
+      spriteID: 84f5462f9ba564b50800000000000000
+      internalID: 6577044060503301960
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      male_dot_4_0: 2582263326591293535
+      Uni_Yaho_0: 6577044060503301960
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
