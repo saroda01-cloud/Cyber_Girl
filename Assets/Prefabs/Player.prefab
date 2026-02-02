@@ -178,6 +178,7 @@ MonoBehaviour:
   jumpBufferTime: 0.15
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  dialogTest: {fileID: 0}
 --- !u!114 &5492839742380753282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,11 +191,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6219048c252da564ea40206c60bed97f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 3
+  maxHealth: 4
   invincibleTime: 1
   playerSprite: {fileID: 6373123399674990350}
   blinkInterval: 0.1
   healthIcons:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

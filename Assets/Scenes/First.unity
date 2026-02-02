@@ -694,7 +694,7 @@ MonoBehaviour:
   zoomOutDuration: 4
   zoomInDuration: 1
   waitAfterZoomIn: 1
-  spriteDisplayTime: 1.5
+  spriteDisplayTime: 1
   waitBeforeBlink: 2
 --- !u!1 &757082645
 GameObject:

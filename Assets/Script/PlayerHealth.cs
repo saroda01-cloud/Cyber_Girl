@@ -23,21 +23,23 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
-        playerController = GetComponent<PlayerController>();
+        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        bool showHealthUI = sceneName.StartsWith("Map");
 
-        if (playerSprite == null)
+        if (showHealthUI)
         {
-            playerSprite = GetComponent<SpriteRenderer>();
-            if (playerSprite == null)
-            {
-                playerSprite = GetComponentInChildren<SpriteRenderer>();
-            }
+            currentHealth = maxHealth; // 맵에서는 항상 만피로 시작
+        }
+
+        // UI 표시/숨김
+        foreach (GameObject icon in healthIcons)
+        {
+            if (icon != null)
+                icon.SetActive(showHealthUI);
         }
 
         UpdateHealthUI();
     }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (isInvincible)
@@ -160,17 +162,31 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        if (playerController != null)
+        Debug.Log("Player Died! 체력 회복 후 First Scene으로 돌아가기");
+
+        // 체력 완전 회복 (PlayerHealth의 변수들)
+        currentHealth = maxHealth; // 3으로 회복
+        UpdateHealthUI();
+
+        // 무적 상태 해제
+        isInvincible = false;
+        if (playerSprite != null)
         {
-            playerController.Die();
+            playerSprite.enabled = true;
+        }
+
+        // PlayerController.Die() 호출하지 않고 바로 씬 이동
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadScene("First");
         }
         else
         {
-            Debug.Log("Player Died!");
-            Destroy(gameObject);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("First");
         }
-    }
 
+        // PlayerController.Die()는 호출하지 않음!
+    }
     public void Heal(int amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
