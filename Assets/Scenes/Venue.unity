@@ -3538,23 +3538,99 @@ MonoBehaviour:
   dialogs:
   - speakerIndex: 0
     name: 
-    dialogue: 123
+    dialogue: "(\uB4F1 \uB4A4\uC5D0\uC11C \uAE30\uCC99\uC774 \uB290\uAEF4\uC9C4\uB2E4)"
+    dialogueSprite: {fileID: 0}
+    expression: 1
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\u2026\uBC29\uAE08, \uC12C\uB729\uD588\uB294\uB370.\u201D\r\n"
     dialogueSprite: {fileID: 0}
     expression: 0
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 1
     name: 
-    dialogue: qwe
+    dialogue: "\u201C\uB180\uB790\uC5B4?\u201D\r\n"
+    dialogueSprite: {fileID: 0}
+    expression: 4
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\u2026\uC5B4?\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 1
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uC774\uC81C\uB294 \uC870\uAE08 \uB4E4\uB824. \uB124 \uB9D0.\u201D\r\n"
     dialogueSprite: {fileID: 0}
     expression: 0
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 0
     name: 
-    dialogue: qwe
+    dialogue: "\u201C\uC815\uB9D0?\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 4
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uC644\uBCBD\uD558\uC9C4 \uC54A\uC9C0\uB9CC\u2026 \uB124\uAC00
+      \uC6C3\uC744 \uB54C \uBB34\uC2A8 \uB9D0 \uD558\uB294\uC9C0\uB294 \uC54C \uAC83
+      \uAC19\uC544.\u201D\r\n"
     dialogueSprite: {fileID: 0}
     expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uADF8\uB7FC \uC774\uAC74?\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 4
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uB108\uB97C \uB9CC\uB098\uB7EC \uC624\uB294 \uC2DC\uAC04\uB4E4\uC774,
+      \uB2E4 \uC990\uAC70\uC6E0\uC5B4.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 2
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uB098\uB3C4.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uD654\uBA74\uC0C1\uC73C\uB85C \uBCF4\uB358 \uC0AC\uB78C\uC744
+      \uC774\uB807\uAC8C \uAC00\uAE4C\uC774\uC11C \uBCF4\uB294 \uAC8C.\u201D\r\n"
+    dialogueSprite: {fileID: 0}
+    expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uC774\uC0C1\uD558\uAC8C, \uC624\uB798 \uC54C\uACE0 \uC9C0\uB0B8
+      \uAE30\uBD84\uC774\uC57C.\u201D\r\n"
+    dialogueSprite: {fileID: 0}
+    expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uADF8\uAC74 \uC544\uB9C8\u2026 \uC6B0\uB9AC\uAC00 \uACC4\uC18D
+      \uAC19\uC740 \uCABD\uC744 \uBCF4\uACE0 \uC788\uC5B4\uC11C\uACA0\uC9C0.\u201D\r\n"
+    dialogueSprite: {fileID: 0}
+    expression: 2
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   isAutoStart: 1
@@ -3809,18 +3885,61 @@ MonoBehaviour:
     imageDialogueSprite: {fileID: 569475318}
     objectArrow: {fileID: 1073189818}
   dialogs:
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uC774\uAC74\u2026 \uC0AC\uACFC\uC57C. \uBA39\uC744 \uC218 \uC788\uC5B4.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 0
+    sceneSpriteRenderer: {fileID: 655032508}
+    sceneSpriteVisibleOnlyThisLine: 1
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\u2026\u2026?\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 2
+    sceneSpriteRenderer: {fileID: 655032508}
+    sceneSpriteVisibleOnlyThisLine: 1
   - speakerIndex: 1
     name: 
     dialogue: 
     dialogueSprite: {fileID: 21300000, guid: 5f7a5f12b44528b4f9a5e4f7ae1b059e, type: 3}
     expression: 2
+    sceneSpriteRenderer: {fileID: 655032508}
+    sceneSpriteVisibleOnlyThisLine: 1
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uB124\uAC00 \uC88B\uC544\uD560 \uAC83 \uAC19\uC558\uC5B4.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 2
+    sceneSpriteRenderer: {fileID: 655032508}
+    sceneSpriteVisibleOnlyThisLine: 1
+  - speakerIndex: 1
+    name: 
+    dialogue: 
+    dialogueSprite: {fileID: 21300000, guid: 5f7a5f12b44528b4f9a5e4f7ae1b059e, type: 3}
+    expression: 3
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 0
     name: 
-    dialogue: Apple
+    dialogue: "\u201C\uAD1C\uCC2E\uC544. \uC9C0\uAE08 \uC774\uB807\uAC8C \uC5BC\uAD74
+      \uBCF4\uACE0 \uB9D0\uD558\uB294 \uAC83\uB9CC\uC73C\uB85C\uB3C4.\u201D "
     dialogueSprite: {fileID: 0}
-    expression: 1
+    expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: ...
+    dialogueSprite: {fileID: 0}
+    expression: 2
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: 
+    dialogueSprite: {fileID: 0}
+    expression: 0
     sceneSpriteRenderer: {fileID: 655032508}
     sceneSpriteVisibleOnlyThisLine: 1
   isAutoStart: 1
@@ -4496,6 +4615,140 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1756162085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1756162087}
+  - component: {fileID: 1756162086}
+  m_Layer: 0
+  m_Name: DialogSystem4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1756162086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756162085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616869a8fb9171f43b748c58c901f08b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogSystem
+  speakers:
+  - spriteRenderer: {fileID: 149523297}
+    animator: {fileID: 149523299}
+    imageDialog: {fileID: 511363397}
+    textDialogue: {fileID: 1910391548}
+    imageDialogueSprite: {fileID: 979775721}
+    objectArrow: {fileID: 1484554303}
+  - spriteRenderer: {fileID: 1715841570}
+    animator: {fileID: 1715841567}
+    imageDialog: {fileID: 550103316}
+    textDialogue: {fileID: 1747809854}
+    imageDialogueSprite: {fileID: 569475318}
+    objectArrow: {fileID: 1073189818}
+  dialogs:
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uC870\uAE08 \uC804\uC5D0\u2026 \uACBD\uCC30\uD55C\uD14C \uAC70\uC758
+      \uC7A1\uD790 \uBED4\uD588\uC5B4.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 3
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uADF8\uB798\uB3C4 \uC654\uB124.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uB124 \uC5BC\uAD74 \uBCF4\uB2C8\uAE4C, \uC774\uC0C1\uD558\uAC8C
+      \uB2E4 \uAD1C\uCC2E\uC544\uC838.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 2
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uB098\u2026 \uACB0\uC815\uD588\uC5B4.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uB124\uAC00 \uC0AC\uB294 \uCABD\uC73C\uB85C \uAC00\uACE0 \uC2F6\uC5B4.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\u2026\uC815\uB9D0?\u201D\r\n"
+    dialogueSprite: {fileID: 0}
+    expression: 4
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uC5EC\uAE34 \uB298 \uCABC\uAC1C\uC9C0\uACE0, \uAE68\uC9C0\uACE0,
+      \uBD88\uC548\uC815\uD574.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 3
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\uADFC\uB370 \uB124\uAC00 \uC788\uB294 \uCABD\uC740\u2026 \uACC4\uC18D
+      \uC774\uC5B4\uC838 \uC788\uC796\uC544.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 2
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uC640\uB3C4 \uB3FC.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 2
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uBB34\uC2A8 \uC77C\uC774 \uC788\uC5B4\uB3C4, \uB0B4\uAC00 \uC9C0\uD0AC\uAC8C.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  isAutoStart: 1
+  useSpriteDialogue: 1
+--- !u!4 &1756162087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756162085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1039.5259, y: 432.9812, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1842113615
 GameObject:
   m_ObjectHideFlags: 0
@@ -4790,23 +5043,52 @@ MonoBehaviour:
   dialogs:
   - speakerIndex: 0
     name: 
-    dialogue: 123
+    dialogue: "\u201C\uC774\uAC74\u2026 \uB0B4 \uC120\uBB3C\uC774\uC57C.\u201D"
     dialogueSprite: {fileID: 0}
     expression: 0
     sceneSpriteRenderer: {fileID: 1669569473}
     sceneSpriteVisibleOnlyThisLine: 1
   - speakerIndex: 1
     name: 
-    dialogue: thankyou
+    dialogue: 
     dialogueSprite: {fileID: 0}
-    expression: 0
+    expression: 1
+    sceneSpriteRenderer: {fileID: 1669569473}
+    sceneSpriteVisibleOnlyThisLine: 1
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\u2026\uBBF8\uC548, \uC798 \uC548 \uB4E4\uB824.\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 3
+    sceneSpriteRenderer: {fileID: 1669569473}
+    sceneSpriteVisibleOnlyThisLine: 1
+  - speakerIndex: 0
+    name: 
+    dialogue: 
+    dialogueSprite: {fileID: 21300000, guid: 5f7a5f12b44528b4f9a5e4f7ae1b059e, type: 3}
+    expression: 3
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 0
     name: 
-    dialogue: 1232
+    dialogue: "\u201C\uB9D0\uC740 \uC774\uD574 \uBABB\uD574\uB3C4\u2026 \uB2F9\uC2E0\uC744
+      \uC88B\uC544\uD55C\uB2E4\uB294 \uAC74, \uD655\uC2E4\uD574.\u201D"
     dialogueSprite: {fileID: 0}
     expression: 0
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 1
+    name: 
+    dialogue: "\u201C\u2026\u2026!\u201D"
+    dialogueSprite: {fileID: 0}
+    expression: 1
+    sceneSpriteRenderer: {fileID: 0}
+    sceneSpriteVisibleOnlyThisLine: 0
+  - speakerIndex: 0
+    name: 
+    dialogue: "\u201C\uC544, \uC544\uB2C8\u2026 \uB108\uBB34 \uAC11\uC790\uAE30\uC600\uC9C0.\u201D\r\n"
+    dialogueSprite: {fileID: 0}
+    expression: 3
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   isAutoStart: 1
@@ -5078,6 +5360,7 @@ SceneRoots:
   - {fileID: 1180240437}
   - {fileID: 2007467574}
   - {fileID: 1005637242}
+  - {fileID: 1756162087}
   - {fileID: 1901856853}
   - {fileID: 1842113617}
   - {fileID: 2058805538}
