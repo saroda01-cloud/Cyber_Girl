@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float airControlMultiplier = 0.65f;
     public float jumpForce = 10f;
 
+
     [Header("Jump Assist")]
     public float coyoteTime = 0.15f;
     public float jumpBufferTime = 0.15f;
