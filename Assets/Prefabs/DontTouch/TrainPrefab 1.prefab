@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63ab2f1bb408e349bc01f4271077b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Train
+  lightObject: {fileID: 6988572315161810694}
+  lightStartOn: 1
 --- !u!50 &1160120252089910600
 Rigidbody2D:
   serializedVersion: 5
