@@ -18,6 +18,7 @@ public class DialogSystem : MonoBehaviour
     private float typingSpeed = 0.1f;           // 텍스트 타이핑 효과의 재생 속도
     private bool isTypingEffect = false;        // 텍스트 타이핑 효과를 재생중인지
 
+
     [Header("Day1~2: 글자 대신 Sprite 대사")]
     [SerializeField] private bool useSpriteDialogue = false; // true면 DialogData.dialogueSprite를 사용
 
@@ -49,7 +50,8 @@ public class DialogSystem : MonoBehaviour
             isFirst = false;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
+
         {
             // 텍스트 타이핑 효과 재생중일 때 클릭하면 즉시 완성 텍스트 출력
             if (isTypingEffect == true)
