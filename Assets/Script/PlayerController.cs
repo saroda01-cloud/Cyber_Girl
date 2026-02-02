@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Rendering.MaterialUpgrader;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
     private Rigidbody2D playerRigidbody;
     private bool isDead = false;
+    public DialogTest dialogTest;
 
     // 보조 변수
     private float coyoteTimer;
@@ -28,12 +30,12 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
-    }
+    }   
 
     private void Update()
     {
         if (isDead) return;
-
+            
         // 좌우 입력
         moveInput = Input.GetAxisRaw("Horizontal");
 
@@ -74,7 +76,12 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (isDead) return;
-
+        if (dialogTest != null && dialogTest.IsInTalkRange)
+        {
+            playerRigidbody.linearVelocity = Vector2.zero;
+            playerRigidbody.angularVelocity = 0f;
+            return;
+        }
         // 이동 (공중 제어력 적용)
         float control = isGrounded ? 1f : airControlMultiplier;
         playerRigidbody.linearVelocity = new Vector2(
