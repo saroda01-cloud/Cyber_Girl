@@ -2504,12 +2504,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -892059231665849629, guid: c9c9ec740c3bd1a47b424205a45fbd0d, type: 3}
+  m_Sprite: {fileID: -892059231665849629, guid: 418daedfac111414c9aa81f4b69c32db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.065, y: 2.085}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2540,7 +2540,7 @@ Animator:
   m_GameObject: {fileID: 149523293}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 57a9b00be8dea33468000070645e4028, type: 2}
+  m_Controller: {fileID: 9100000, guid: 366c45b6d5ce47042b02c01620fcccd9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4578,7 +4578,7 @@ MonoBehaviour:
   talkTarget: {fileID: 1715841571}
   startDistance: 3
   use2DDistance: 1
-  currentDay: 1
+  currentDay: 2
   dialogsByDay:
   - {fileID: 1180240436}
   - {fileID: 2007467573}
