@@ -849,7 +849,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.065, y: 2.085}
+    oldSize: {x: 2.13, y: 4.17}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1488,6 +1488,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755e1187d0dee994e92522b9a1a53dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovingWall
+--- !u!1001 &1061599888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1270807135537059982, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: uiParent
+      value: 
+      objectReference: {fileID: 431586793}
+    - target: {fileID: 1270807135537059982, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: uiPrefab
+      value: 
+      objectReference: {fileID: 8828853860323680268, guid: 6d197ee74b870e44b8502057fd6ee4ea, type: 3}
+    - target: {fileID: 1270807135537059982, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: messageText
+      value: "\u314E\u3147"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -23.77582
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.88192
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950140501828218156, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539460637674952314, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
+      propertyPath: m_Name
+      value: UiTrigger
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 63d7e205b9db0154290c69f56ab07f80, type: 3}
 --- !u!1001 &1085330424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2388,3 +2457,4 @@ SceneRoots:
   - {fileID: 274305467}
   - {fileID: 2105935736}
   - {fileID: 928999563}
+  - {fileID: 1061599888}
