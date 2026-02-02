@@ -34,6 +34,11 @@ public class PlayerController : MonoBehaviour
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>(); // 애니메이터 가져오기
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Map5")
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f); // X축만 -1로
+        }
+
     }
 
     private void Update()

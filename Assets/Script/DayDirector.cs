@@ -48,14 +48,21 @@ public class DayDirector : MonoBehaviour
 
     private void HandleDayDialogFinished(int finishedDay)
     {
-        if (finishedDay == 2 && !day2Played)
+        if (finishedDay == 4)
         {
+            // Day 4는 바로 Map5로
+            SceneTransitionManager.Instance.currentDay = 5;
+            SceneTransitionManager.Instance.LoadScene("Map5");
+        }
+        else if (finishedDay == 2 && !day2Played)
+        {
+            // Day 2는 특별한 연출 후 First로
             day2Played = true;
             StartCoroutine(PlayDay2Sequence());
         }
         else
         {
-            // Day 1이거나 다른 Day면 바로 First로
+            // Day 1, 3은 바로 First로
             SceneTransitionManager.Instance.ContinueFromVenue();
         }
     }

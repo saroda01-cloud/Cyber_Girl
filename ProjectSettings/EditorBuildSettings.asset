@@ -12,6 +12,21 @@ EditorBuildSettings:
     path: Assets/Scenes/First.unity
     guid: 81feadf5e4601e64d9b0dce3bfcf172f
   - enabled: 1
+    path: Assets/Scenes/Map1.unity
+    guid: 3664e0019ff6f964599be95f255e593b
+  - enabled: 1
+    path: Assets/Scenes/Map3.unity
+    guid: bb8f8ac2037ab3e48998f11235ec6c87
+  - enabled: 1
+    path: Assets/Scenes/Map4.unity
+    guid: ba008820c8444914b91dcf832392dd97
+  - enabled: 1
+    path: Assets/Scenes/Map5.unity
+    guid: 4ea086264f380fd48b5ce18f62c7c55b
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: c501ff1b8ee5711498ca23e7ee7bbba9
+  - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: d9b15cefa4975dc43863277c890db6fc
   - enabled: 1
@@ -19,7 +34,7 @@ EditorBuildSettings:
     guid: 460188f2056cde8498029d15dcef69b7
   - enabled: 1
     path: Assets/Scenes/Map2.unity
-    guid: f373ffa7018d3454f8b90e6fcd4e2961
+    guid: 970cf01c4c87b384fa5699fcc52a370d
   - enabled: 1
     path: Assets/Scenes/Venue.unity
     guid: 3527b0ee054e6654899c71973d63e6b5

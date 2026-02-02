@@ -65,12 +65,12 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     // 씬 로드
-    private void LoadScene(string sceneName)
+    // LoadScene을 private에서 public으로 변경
+    public void LoadScene(string sceneName)
     {
         Debug.Log($"씬 로드: {sceneName}, Current Day: {currentDay}");
         SceneManager.LoadScene(sceneName);
     }
-
     // 현재 Day 확인
     public int GetCurrentDay()
     {
