@@ -77,12 +77,19 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // DeadZone 전용 - 무적 상태 무시
     public void TakeDamageAndRespawn(Transform respawnPoint)
     {
+        // 무적 상태 강제 종료
         if (isInvincible)
         {
-            Debug.Log("TakeDamage blocked by invincibility");
-            return;
+            StopCoroutine(InvincibilityCoroutine());
+            if (playerSprite != null)
+            {
+                playerSprite.enabled = true;
+            }
+            isInvincible = false;
+            Debug.Log("무적 상태 강제 해제됨 (DeadZone)");
         }
 
         isInvincible = true;
@@ -107,13 +114,11 @@ public class PlayerHealth : MonoBehaviour
         if (respawnPoint != null)
         {
             transform.position = respawnPoint.position;
-
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             if (rb != null)
             {
                 rb.linearVelocity = Vector2.zero;
             }
-
             Debug.Log("Player respawned!");
         }
     }
@@ -129,7 +134,6 @@ public class PlayerHealth : MonoBehaviour
             {
                 playerSprite.enabled = !playerSprite.enabled;
             }
-
             yield return new WaitForSeconds(blinkInterval);
             elapsed += blinkInterval;
         }

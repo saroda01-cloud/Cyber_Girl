@@ -123,9 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeed0712974fed54cabe7cba7820256e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrainTrigger
-  trainPrefab: {fileID: 4265981749546697180, guid: 4a1ed0addfacc9a47b33e09b99fbbd4d, type: 3}
+  trainPrefab: {fileID: 4265981749546697180, guid: 23675c8c589eefb49abe7f848e097990, type: 3}
   codeText: {fileID: 0}
   trainStarter: {fileID: 6879992465279908544}
   attackCode: Qweer
   warningTime: 3
   fromLeft: 1
+  trainSpeed: 20

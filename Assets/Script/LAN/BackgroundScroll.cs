@@ -1,50 +1,101 @@
 using UnityEngine;
 
-public class BackgroundScroll : MonoBehaviour
+public class InfiniteBackground : MonoBehaviour
 {
-    public float backgroundWidth = 19.2f;
-    public float backgroundScale = 2f;
-    public Transform playerTransform;
+    [Header("배경 오브젝트")]
+    [SerializeField] private Transform background0;
+    [SerializeField] private Transform background1;
 
-    private Vector3 lastPosition;
-    private float backgroundOffset;
+    [Header("카메라")]
+    [SerializeField] private Transform cam;
+
+    [Header("패럴랙스")]
+    [SerializeField] private float parallaxSpeed = 0.5f;
+
+    private float backgroundWidth;
+    private float lastCamX;
 
     void Start()
     {
-        lastPosition = playerTransform.position;
-        backgroundOffset = backgroundWidth / 2f; // 초기 오프셋을 배경 너비의 절반으로 설정
+        // 카메라 자동 찾기
+        if (cam == null)
+        {
+            cam = Camera.main.transform;
+            Debug.Log("카메라 자동 할당 완료");
+        }
 
-        // 초기 배경 생성
-        CreateBackgroundAt(-backgroundWidth / 2f); // 왼쪽 절반 지점에 배경 생성
-        CreateBackgroundAt(backgroundWidth / 2f); // 오른쪽 절반 지점에 배경 생성
+        // 배경 자동 찾기 (할당 안 되어있으면)
+        if (background0 == null || background1 == null)
+        {
+            Transform[] children = GetComponentsInChildren<Transform>();
+            int bgIndex = 0;
+            foreach (Transform child in children)
+            {
+                if (child == transform) continue; // 자기 자신 제외
+
+                if (child.GetComponent<SpriteRenderer>() != null)
+                {
+                    if (bgIndex == 0) background0 = child;
+                    else if (bgIndex == 1) background1 = child;
+                    bgIndex++;
+                }
+            }
+            Debug.Log($"배경 자동 할당: BG0={background0.name}, BG1={background1.name}");
+        }
+
+        SpriteRenderer sr = background0.GetComponent<SpriteRenderer>();
+        backgroundWidth = sr.bounds.size.x;
+
+        lastCamX = cam.position.x;
+
+        background0.position = new Vector3(0, background0.position.y, background0.position.z);
+        background1.position = new Vector3(backgroundWidth, background1.position.y, background1.position.z);
     }
+
     void Update()
     {
-        // 플레이어의 이동 거리 계산
-        float deltaMovement = playerTransform.position.x - lastPosition.x;
-        backgroundOffset += deltaMovement;
-        lastPosition = playerTransform.position;
+        float camDeltaX = cam.position.x - lastCamX;
+        float parallaxMove = camDeltaX * parallaxSpeed;
 
-        // 배경 위치 업데이트
-        if (backgroundOffset > backgroundWidth)
-        {
-            backgroundOffset -= backgroundWidth;
-            CreateBackgroundAt(lastPosition.x + backgroundWidth / 2f); // 오른쪽 절반 지점에 배경 생성
-        }
-        else if (backgroundOffset < 0f)
-        {
-            backgroundOffset += backgroundWidth;
-            CreateBackgroundAt(lastPosition.x - backgroundWidth / 2f); // 왼쪽 절반 지점에 배경 생성
-        }
-    }
-    void CreateBackgroundAt(float xPosition)
-    {
-        GameObject backgroundObject = new GameObject("Background");
-        backgroundObject.transform.parent = transform;
-        backgroundObject.transform.position = new Vector3(xPosition, 0f, 10f);
-        backgroundObject.transform.localScale = Vector3.one * backgroundScale;
+        background0.position += Vector3.right * parallaxMove;
+        background1.position += Vector3.right * parallaxMove;
 
-        SpriteRenderer spriteRenderer = backgroundObject.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = GetComponent<SpriteRenderer>().sprite;
+        if (cam.position.x - background0.position.x >= backgroundWidth)
+        {
+            background0.position = new Vector3(
+                background1.position.x + backgroundWidth,
+                background0.position.y,
+                background0.position.z
+            );
+        }
+
+        if (cam.position.x - background1.position.x >= backgroundWidth)
+        {
+            background1.position = new Vector3(
+                background0.position.x + backgroundWidth,
+                background1.position.y,
+                background1.position.z
+            );
+        }
+
+        if (background0.position.x - cam.position.x >= backgroundWidth)
+        {
+            background0.position = new Vector3(
+                background1.position.x - backgroundWidth,
+                background0.position.y,
+                background0.position.z
+            );
+        }
+
+        if (background1.position.x - cam.position.x >= backgroundWidth)
+        {
+            background1.position = new Vector3(
+                background0.position.x - backgroundWidth,
+                background1.position.y,
+                background1.position.z
+            );
+        }
+
+        lastCamX = cam.position.x;
     }
 }

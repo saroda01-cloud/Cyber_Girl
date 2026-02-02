@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Dead
   - TriggerZone
+  - Background
   layers:
   - Default
   - TransparentFX
@@ -40,8 +41,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3632899577
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 3432823923
     locked: 0
   m_RenderingLayers:
   - Default

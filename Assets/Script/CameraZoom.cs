@@ -41,13 +41,13 @@ public class CameraZoom : MonoBehaviour
             yield return new WaitForSeconds(2f);
             // 2단계: rest → end
             yield return StartCoroutine(Zoom(restOrthoSize, endOrthoSize, duration2));
-            text.gameObject.SetActive(false);
+            if (text != null) text.gameObject.SetActive(false);
         }
         else
         {
             // 그냥 start → end
             yield return StartCoroutine(Zoom(startOrthoSize, endOrthoSize, duration1));
-            text.gameObject.SetActive(false);
+            if (text != null) text.gameObject.SetActive(false);
         }
     }
 
