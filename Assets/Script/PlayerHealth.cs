@@ -162,10 +162,10 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player Died! 체력 회복 후 First Scene으로 돌아가기");
+        Debug.Log("Player Died! 체력 회복 후 맵 시작점으로 리스폰");
 
-        // 체력 완전 회복 (PlayerHealth의 변수들)
-        currentHealth = maxHealth; // 3으로 회복
+        // 체력 완전 회복
+        currentHealth = maxHealth;
         UpdateHealthUI();
 
         // 무적 상태 해제
@@ -175,17 +175,9 @@ public class PlayerHealth : MonoBehaviour
             playerSprite.enabled = true;
         }
 
-        // PlayerController.Die() 호출하지 않고 바로 씬 이동
-        if (SceneTransitionManager.Instance != null)
-        {
-            SceneTransitionManager.Instance.LoadScene("First");
-        }
-        else
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("First");
-        }
-
-        // PlayerController.Die()는 호출하지 않음!
+        // 맵 시작점으로 이동 (씬 재로드)
+        string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
     }
     public void Heal(int amount)
     {
