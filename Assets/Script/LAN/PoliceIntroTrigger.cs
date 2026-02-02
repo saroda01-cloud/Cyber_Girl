@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class PoliceIntroTrigger : MonoBehaviour
 {
-    [Header("Camera Zoom")]
-    [SerializeField] private CameraFollowWithConstraint cameraFollow; // 기존 카메라 스크립트
-    [SerializeField] private Transform policeTarget; // 경찰(벽) 위치
-    [SerializeField] private Transform player; // 플레이어
+    [Header("수동 설정 필요")]
+    [SerializeField] private Transform policeTarget; // Police 자식 오브젝트
+    [SerializeField] private MovingWall movingWall;
+
+    private CameraFollowWithConstraint cameraFollow;
+    private Transform player;
 
     [Header("Zoom Settings")]
-    [SerializeField] private float zoomInSize = 3f; // 경찰 클로즈업 크기
+    [SerializeField] private float zoomInSize = 4f; // 경찰 클로즈업 크기
     [SerializeField] private float zoomInDuration = 2f; // 줌인 시간
     [SerializeField] private float showDuration = 2f; // 경찰 보여주는 시간
     [SerializeField] private float zoomOutDuration = 1f; // 줌아웃 시간
 
-    [Header("Moving Wall")]
-    [SerializeField] private MovingWall movingWall; // 밀리는 벽
 
     private Camera cam;
     private bool hasTriggered = false;

@@ -3,7 +3,7 @@ using UnityEngine;
 public class MovingWall : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 2f; // Inspector에서 조정 가능
+    [SerializeField] private float moveSpeed = 7f; // Inspector에서 조정 가능
     [SerializeField] private bool isMoving = false; // 처음엔 멈춰있음
 
     [Header("Push Settings")]
