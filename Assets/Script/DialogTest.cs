@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ public class DialogTest : MonoBehaviour
     private bool hasStarted = false;
     public bool IsInTalkRange { get; private set; }
 
+    public int CurrentDay => currentDay;
+    public event Action<int> OnDayDialogFinished;
 
 
     private void Update()
@@ -36,16 +39,7 @@ public class DialogTest : MonoBehaviour
     }
 
     private IEnumerator Start()
-    {
-        // talkTarget이 비어있으면 이 오브젝트를 기준으로 거리 체크
-        if (talkTarget == null) talkTarget = transform;
-
-        // player가 비어있으면 Tag가 Player인 오브젝트를 찾아봄
-        if (player == null)
-        {
-            GameObject p = GameObject.FindGameObjectWithTag("Player");
-            if (p != null) player = p.transform;
-        }
+    {        
 
         if (player == null)
         {
@@ -88,6 +82,8 @@ public class DialogTest : MonoBehaviour
 
         // Day에 해당하는 대사 분기 시작 (Space로 넘기는 기존 방식 그대로)
         yield return new WaitUntil(() => target.UpdateDialog());
+
+        OnDayDialogFinished?.Invoke(currentDay);
 
         currentDay++;
     }
