@@ -80,51 +80,38 @@ public class TrainTrigger : MonoBehaviour
             return;
         }
 
-        // TrainStarter Y 좌표 확인
-        Debug.Log($"[TrainTrigger] TrainStarter Y: {trainStarter.position.y}");
-
-        // 카메라 정보
         Camera cam = Camera.main;
         float cameraHalfWidth = cam.orthographicSize * cam.aspect;
         float cameraLeftX = cam.transform.position.x - cameraHalfWidth;
         float cameraRightX = cam.transform.position.x + cameraHalfWidth;
 
-        // 임시 생성해서 기차 너비 계산
         Vector3 tempPos = new Vector3(-1000, -1000, 0);
         GameObject train = Instantiate(trainPrefab, tempPos, Quaternion.identity);
         SpriteRenderer sr = train.GetComponentInChildren<SpriteRenderer>();
         float trainWidth = sr != null ? sr.bounds.size.x : 5f;
 
-        Debug.Log($"[TrainTrigger] Train Width: {trainWidth}");
-
-        // 시작/종료 X 위치 계산
         float startX, endX;
-
         if (fromLeft)
         {
-            startX = cameraLeftX - (trainWidth / 2f);
-            endX = cameraRightX + (trainWidth / 2f);
+            // 왼쪽에서 시작 → 오른쪽 끝 + 기차 전체 길이만큼 더 가야 사라짐
+            startX = cameraLeftX - trainWidth;
+            endX = cameraRightX + trainWidth;  // 기차 전체가 화면 밖으로
         }
         else
         {
-            startX = cameraRightX + (trainWidth / 2f);
-            endX = cameraLeftX - (trainWidth / 2f);
+            // 오른쪽에서 시작 → 왼쪽 끝 - 기차 전체 길이
+            startX = cameraRightX + trainWidth;
+            endX = cameraLeftX - trainWidth;  // 기차 전체가 화면 밖으로
         }
 
-        // TrainStarter의 Y 좌표 사용
         float trainY = trainStarter.position.y;
-
-        // 실제 위치로 이동
         train.transform.position = new Vector3(startX, trainY, 0f);
 
-        Debug.Log($"[TrainTrigger] Train final position: ({train.transform.position.x}, {train.transform.position.y})");
-        Debug.Log($"[TrainTrigger] Expected Y: {trainY}, Actual Y: {train.transform.position.y}");
-
-        // Train 스크립트에 목표 설정
         Train script = train.GetComponentInChildren<Train>();
         if (script != null)
         {
-            script.SetTarget(endX, fromLeft, trainSpeed); // 속도 전달!
+            script.SetTarget(endX, fromLeft, trainSpeed);
+            Debug.Log($"[TrainTrigger] Train 목표: {endX}, 거리: {Mathf.Abs(endX - startX)}");
         }
         else
         {

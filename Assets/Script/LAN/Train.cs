@@ -3,45 +3,90 @@ using UnityEngine;
 public class Train : MonoBehaviour
 {
     [Header("Movement")]
-    private float moveSpeed = 20f; // 빠른 속도
+    private float moveSpeed = 20f;
     private float targetX;
     private bool movingRight;
     private bool hasTarget = false;
 
-    [Header("Light")]
-    public GameObject lightObject; // Light 오브젝트
-    public bool lightStartOn = true; // 시작 시 켜져 있을지 여부
+    [Header("Lights")]
+    public GameObject lightLeft;  // Light_L
+    public GameObject lightRight; // Light_R
 
     void Start()
     {
-        // Light 초기 상태 설정
-        if (lightObject != null)
+        // Light 오브젝트 자동 찾기
+        if (lightLeft == null)
         {
-            lightObject.SetActive(lightStartOn);
+            Transform leftTransform = transform.Find("Light_L");
+            if (leftTransform != null)
+            {
+                lightLeft = leftTransform.gameObject;
+                Debug.Log("[Train] Light_L 자동 찾기 성공");
+            }
+            else
+            {
+                Debug.LogWarning("[Train] Light_L을 찾을 수 없습니다!");
+            }
         }
+
+        if (lightRight == null)
+        {
+            Transform rightTransform = transform.Find("Light_R");
+            if (rightTransform != null)
+            {
+                lightRight = rightTransform.gameObject;
+                Debug.Log("[Train] Light_R 자동 찾기 성공");
+            }
+            else
+            {
+                Debug.LogWarning("[Train] Light_R을 찾을 수 없습니다!");
+            }
+        }
+
+        // 처음엔 둘 다 끄기
     }
 
-    public void SetTarget(float endX, bool isMovingRight, float speed) // 속도 파라미터 추가
+    public void SetTarget(float endX, bool isMovingRight, float speed)
     {
         targetX = endX;
         movingRight = isMovingRight;
-        moveSpeed = speed; // 속도 설정
+        moveSpeed = speed;
         hasTarget = true;
-        Debug.Log($"[Train] Target set! Current X: {transform.position.x}, Target X: {targetX}, Moving Right: {movingRight}");
+
+
+        // 방향에 따라 라이트 켜기
+        if (movingRight)
+        {
+
+            if (lightRight != null)
+            {
+                lightRight.SetActive(true);
+            }
+
+            if (lightLeft != null) lightLeft.SetActive(false);
+        }
+        else
+        {
+
+            if (lightLeft != null)
+            {
+                lightLeft.SetActive(true);
+            }
+
+            if (lightRight != null) lightRight.SetActive(false);
+        }
     }
 
     void Update()
     {
         if (!hasTarget)
         {
-            Debug.LogWarning("[Train] No target set!");
             return;
         }
 
         if (movingRight)
         {
             transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
-            // 목표 지점 도달하면 삭제
             if (transform.position.x >= targetX)
             {
                 Destroy(gameObject);
@@ -50,7 +95,6 @@ public class Train : MonoBehaviour
         else
         {
             transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
-            // 목표 지점 도달하면 삭제
             if (transform.position.x <= targetX)
             {
                 Destroy(gameObject);
@@ -63,31 +107,6 @@ public class Train : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player hit by train!");
-        }
-    }
-
-    // Light를 켜는 함수
-    public void TurnOnLight()
-    {
-        if (lightObject != null)
-        {
-            lightObject.SetActive(true);
-        }
-    }
-
-    public void TurnOffLight()
-    {
-        if (lightObject != null)
-        {
-            lightObject.SetActive(false);
-        }
-    }
-
-    public void ToggleLight()
-    {
-        if (lightObject != null)
-        {
-            lightObject.SetActive(!lightObject.activeSelf);
         }
     }
 }
