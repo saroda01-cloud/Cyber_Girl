@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Dead
   - TriggerZone
+  - Background
   layers:
   - Default
   - TransparentFX
