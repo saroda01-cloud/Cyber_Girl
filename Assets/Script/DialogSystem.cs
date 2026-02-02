@@ -5,22 +5,21 @@ using TMPro;
 
 public class DialogSystem : MonoBehaviour
 {
-    [SerializeField]
-    private Speaker[] speakers;                 // 대화에 참여하는 캐릭터들의 UI 배열
-    [SerializeField]
-    private DialogData[] dialogs;               // 현재 분기의 대사 목록 배열
-    [SerializeField]
-    private bool isAutoStart = true;            // 자동 시작 여부
+    [SerializeField] private Speaker[] speakers;
+    [SerializeField] private DialogData[] dialogs;
+    [SerializeField] private bool isAutoStart = true;
 
-    private bool isFirst = true;                // 최초 1회만 호출하기 위한 변수
-    private int currentDialogIndex = -1;        // 현재 대사 순번
-    private int currentSpeakerIndex = 0;        // 현재 말을 하는 화자(Speaker)의 speakers 배열 순번
-    private float typingSpeed = 0.1f;           // 텍스트 타이핑 효과의 재생 속도
-    private bool isTypingEffect = false;        // 텍스트 타이핑 효과를 재생중인지
-
+    private bool isFirst = true;
+    private int currentDialogIndex = -1;
+    private int currentSpeakerIndex = 0;
+    private float typingSpeed = 0.1f;
+    private bool isTypingEffect = false;
 
     [Header("Day1~2: 글자 대신 Sprite 대사")]
-    [SerializeField] private bool useSpriteDialogue = false; // true면 DialogData.dialogueSprite를 사용
+    [SerializeField] private bool useSpriteDialogue = false;
+
+    // 현재 켜져있는 "씬 스프라이트"를 추적해서 다음 줄에서 끄기 위함
+    private SpriteRenderer currentActiveSceneSprite = null;
 
     private void Awake()
     {
@@ -33,27 +32,24 @@ public class DialogSystem : MonoBehaviour
         for (int i = 0; i < speakers.Length; ++i)
         {
             SetActiveObjects(speakers[i], false);
-            // 캐릭터 이미지는 보이도록 설정
             speakers[i].spriteRenderer.gameObject.SetActive(true);
         }
+
+        // 혹시 이전에 켜진 씬 스프라이트가 있으면 끄기
+        SetSceneSpriteForLine(-1);
     }
 
     public bool UpdateDialog()
     {
-        // 대사 분기가 시작될 때 1회만 호출
         if (isFirst == true)
         {
             Setup();
-
             if (isAutoStart) SetNextDialog();
-
             isFirst = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
-
         {
-            // 텍스트 타이핑 효과 재생중일 때 클릭하면 즉시 완성 텍스트 출력
             if (isTypingEffect == true)
             {
                 isTypingEffect = false;
@@ -65,19 +61,20 @@ public class DialogSystem : MonoBehaviour
                 return false;
             }
 
-            // 다음 대사 진행
             if (dialogs.Length > currentDialogIndex + 1)
             {
                 SetNextDialog();
             }
             else
             {
-                // 종료: UI 비활성화
                 for (int i = 0; i < speakers.Length; ++i)
                 {
                     SetActiveObjects(speakers[i], false);
                     speakers[i].spriteRenderer.gameObject.SetActive(true);
                 }
+
+                // 대화 끝나면 켜져있던 씬 스프라이트도 끄기
+                SetSceneSpriteForLine(-1);
 
                 return true;
             }
@@ -91,8 +88,13 @@ public class DialogSystem : MonoBehaviour
         // 이전 화자 UI 끄기
         SetActiveObjects(speakers[currentSpeakerIndex], false);
 
+        // 이전 줄의 씬 스프라이트 끄기 + (새 줄) 씬 스프라이트 켜기
+        // (currentDialogIndex가 아직 증가 전이므로, 아래에서 증가 후 처리)
         // 다음 대사로
         currentDialogIndex++;
+
+        // 현재 줄 기준으로 씬 스프라이트 반영
+        SetSceneSpriteForLine(currentDialogIndex);
 
         // 현재 화자 설정
         currentSpeakerIndex = dialogs[currentDialogIndex].speakerIndex;
@@ -103,19 +105,43 @@ public class DialogSystem : MonoBehaviour
         // Day1~2 + Sprite가 있는 경우
         if (useSpriteDialogue && dialogs[currentDialogIndex].dialogueSprite != null)
         {
-            // Sprite 표시
             speakers[currentSpeakerIndex].imageDialogueSprite.sprite =
                 dialogs[currentDialogIndex].dialogueSprite;
 
-            // 타이핑 없이 바로 완료
             speakers[currentSpeakerIndex].objectArrow.SetActive(true);
         }
         else
         {
-            // Sprite가 없으면 → 텍스트 출력 (Day1~2 포함)
             StartCoroutine(OnTypingText());
         }
     }
+
+    //  이 함수가 "씬에 있는 스프라이트"를 대사별로 켜고/끄는 역할
+    private void SetSceneSpriteForLine(int lineIndex)
+    {
+        // 1) 이전에 켜져 있던 씬 스프라이트 끄기
+        if (currentActiveSceneSprite != null)
+        {
+            currentActiveSceneSprite.gameObject.SetActive(false);
+            currentActiveSceneSprite = null;
+        }
+
+        // lineIndex가 유효하지 않으면 종료
+        if (lineIndex < 0 || dialogs == null || lineIndex >= dialogs.Length)
+            return;
+
+        // 2) 현재 줄에 씬 스프라이트가 지정되어 있다면 켜기
+        var sr = dialogs[lineIndex].sceneSpriteRenderer;
+        if (sr != null)
+        {
+            sr.gameObject.SetActive(true);
+            currentActiveSceneSprite = sr;
+
+            // 옵션: "이 줄에서만" 보여주기 (기본 true로 쓸 거면 이 bool은 굳이 없어도 됨)
+            // 지금 구현은 항상 '다음 줄로 넘어가면 끄기'라서, 사실상 "이 줄에서만"과 동일하게 동작함.
+        }
+    }
+
     private void SetActiveObjects(Speaker speaker, bool visible)
     {
         speaker.imageDialog.gameObject.SetActive(visible);
@@ -127,27 +153,23 @@ public class DialogSystem : MonoBehaviour
             currentDialogIndex < dialogs.Length &&
             dialogs[currentDialogIndex].dialogueSprite != null;
 
-        // Sprite / Text 분기
         if (speaker.imageDialogueSprite != null)
             speaker.imageDialogueSprite.gameObject.SetActive(visible && hasSprite);
 
         speaker.textDialogue.gameObject.SetActive(visible && !hasSprite);
 
-        // 화살표는 항상 꺼진 상태에서 시작
         speaker.objectArrow.SetActive(false);
     }
-
 
     private IEnumerator OnTypingText()
     {
         int index = 0;
         isTypingEffect = true;
 
-        // 한글자씩 타이핑
         while (index < dialogs[currentDialogIndex].dialogue.Length)
         {
             speakers[currentSpeakerIndex].textDialogue.text =
-                dialogs[currentDialogIndex].dialogue.Substring(0, index+1);
+                dialogs[currentDialogIndex].dialogue.Substring(0, index + 1);
 
             index++;
             yield return new WaitForSeconds(typingSpeed);
@@ -168,14 +190,12 @@ public class DialogSystem : MonoBehaviour
         Setup();
     }
 
-    // (선택) 하루마다 대사 데이터 자체를 바꿔 끼우고 싶을 때 사용
     public void SetDialogs(DialogData[] newDialogs)
     {
         dialogs = newDialogs;
         ResetDialog();
     }
 
-    // Day별로 텍스트/스프라이트 출력 모드를 바꾸고 싶을 때 사용
     public void SetUseSpriteDialogue(bool value)
     {
         useSpriteDialogue = value;
@@ -185,11 +205,11 @@ public class DialogSystem : MonoBehaviour
 [System.Serializable]
 public struct Speaker
 {
-    public SpriteRenderer spriteRenderer;       // 캐릭터 이미지
-    public Image imageDialog;                   // 대화창 Image UI
-    public TextMeshProUGUI textDialogue;        // 텍스트 대사
-    public Image imageDialogueSprite;           // (Day1~2) 대사 스프라이트를 보여줄 Image UI
-    public GameObject objectArrow;              // 대사가 완료되었을 때 출력되는 커서
+    public SpriteRenderer spriteRenderer;
+    public Image imageDialog;
+    public TextMeshProUGUI textDialogue;
+    public Image imageDialogueSprite;
+    public GameObject objectArrow;
 }
 
 [System.Serializable]
@@ -202,6 +222,9 @@ public struct DialogData
     public string dialogue;                     // 대사(텍스트)
 
     public Sprite dialogueSprite;               // Day1~2에서 사용할 대사 스프라이트 (없으면 텍스트로 폴백)
+    [Header("씬 스프라이트(선택)")]
+    public SpriteRenderer sceneSpriteRenderer;        // 씬에 있는 스프라이트 참조
+    public bool sceneSpriteVisibleOnlyThisLine;
 }
 
 

@@ -15,6 +15,7 @@ public class DialogTest : MonoBehaviour
 
     [Header("Day별 실행할 DialogSystem (index 0 = Day1)")]
     [SerializeField] private DialogSystem[] dialogsByDay;
+   
 
     private bool hasStarted = false;
     public bool IsInTalkRange { get; private set; }
