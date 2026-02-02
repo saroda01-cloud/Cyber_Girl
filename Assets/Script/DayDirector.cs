@@ -101,7 +101,7 @@ public class DayDirector : MonoBehaviour
 
         // parent 변경 + 위치 세팅
         camTr.SetParent(day2CameraParent, true);
-        camTr.localPosition = new Vector3(-5, 0, -10f);
+        camTr.localPosition = new Vector3(0, 0, -10f);
 
         // 카메라 로컬 이동
         if (cameraMoveTime <= 0f)
