@@ -37,26 +37,16 @@ public class SceneTransitionManager : MonoBehaviour
         LoadScene("First");
     }
 
-    // First에서 다음 맵으로
     public void LoadNextMap()
     {
         switch (currentDay)
         {
-            case 1:
-                LoadScene("Map1");
-                break;
-            case 2:
-                LoadScene("Map2");
-                break;
-            case 3:
-                LoadScene("Map3");
-                break;
-            case 4:
-                LoadScene("Map4");
-                break;
-            case 5:  
-                LoadScene("Map5");
-                break;
+            case 1: LoadScene("Map1"); break;
+            case 2: LoadScene("Map2"); break;
+            case 3: LoadScene("Map3"); break;
+            case 4: LoadScene("Map4"); break;
+            case 5: LoadScene("Map5"); break;
+            case 6: LoadScene("First"); break; // Map5 완료 후 다시 First로
             default:
                 Debug.Log("모든 맵 클리어!");
                 // LoadScene("Ending");
