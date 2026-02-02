@@ -82,7 +82,6 @@ public class CameraFollowWithConstraint : MonoBehaviour
                 if (renderers.Length > 0)
                 {
                     backgroundReference = renderers[0].transform;
-                    Debug.Log("배경 InfiniteBackground로 자동 할당 완료");
                 }
             }
         }

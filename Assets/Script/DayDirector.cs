@@ -49,17 +49,28 @@ public class DayDirector : MonoBehaviour
             day2Played = true;
             StartCoroutine(PlayDay2Sequence());
         }
+        else
+        {
+            // Day 1이거나 다른 Day면 바로 First로
+            SceneTransitionManager.Instance.ContinueFromVenue();
+        }
     }
-
     private IEnumerator PlayDay2Sequence()
     {
+        Debug.Log("[DayDirector] PlayDay2Sequence 시작!");
+
         // 1) 플레이어 2초 이동
         yield return StartCoroutine(MovePlayerForSeconds(playerMoveDuration));
+        Debug.Log("[DayDirector] 플레이어 이동 완료");
 
         // 2) 플레이어 이동 끝난 뒤 "다른 기능" 실행
         yield return StartCoroutine(AfterPlayerMove());
-    }
+        Debug.Log("[DayDirector] AfterPlayerMove 완료");
 
+        // 3) 씬 전환
+        Debug.Log("[DayDirector] First로 이동 시작!");
+        SceneTransitionManager.Instance.ContinueFromVenue();
+    }
     private IEnumerator MovePlayerForSeconds(float seconds)
     {
         float t = 0f;

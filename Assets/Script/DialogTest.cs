@@ -85,7 +85,6 @@ public class DialogTest : MonoBehaviour
 
         OnDayDialogFinished?.Invoke(currentDay);
 
-        currentDay++;
     }
 
     private float GetDistance(Vector3 a, Vector3 b)
@@ -96,6 +95,11 @@ public class DialogTest : MonoBehaviour
             return Vector2.Distance(new Vector2(a.x, a.y), new Vector2(b.x, b.y));
         }
         return Vector3.Distance(a, b);
+    }
+    public void SetCurrentDay(int day)
+    {
+        currentDay = day;
+        Debug.Log($"[DialogTest] currentDay를 {day}로 설정했습니다.");
     }
 }
 
