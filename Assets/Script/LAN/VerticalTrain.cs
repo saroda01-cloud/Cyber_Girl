@@ -46,7 +46,17 @@ public class VerticalTrain : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player hit by vertical train!");
-            // PlayerHealth가 처리
+
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(); // 파라미터 없이 호출
+                Debug.Log("Vertical train dealt damage to player!");
+            }
+            else
+            {
+                Debug.LogError("PlayerHealth component not found on player!");
+            }
         }
     }
 }
