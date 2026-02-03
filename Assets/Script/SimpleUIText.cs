@@ -1,20 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
 public class SimpleMessageTrigger : MonoBehaviour
 {
-    [Header("메시지 설정")]
+    [Header("표시 모드")]
+    [SerializeField] private bool useSprite = false; // true면 스프라이트, false면 텍스트
+
+    [Header("텍스트 설정")]
     [TextArea(2, 5)]
     [SerializeField] private string message = "메시지를 입력하세요";
-
-    [Header("폰트 설정")]
     [SerializeField] private TMP_FontAsset customFont;
     [SerializeField] private float fontSize = 36f;
     [SerializeField] private Color textColor = Color.white;
 
+    [Header("스프라이트 설정")]
+    [SerializeField] private Sprite messageSprite;
+
     [Header("위치 설정")]
-    [SerializeField] private Vector2 anchorPosition = new Vector2(0.5f, 0.8f); // 0~1 (0.5, 0.8 = 중앙 상단)
+    [SerializeField] private Vector2 anchorPosition = new Vector2(0.5f, 0.8f);
     [SerializeField] private Vector2 size = new Vector2(600, 100);
 
     [Header("표시 시간")]
@@ -64,17 +69,27 @@ public class SimpleMessageTrigger : MonoBehaviour
         rectTransform.pivot = new Vector2(0.5f, 0.5f);
         rectTransform.sizeDelta = size;
 
-        // TextMeshPro 추가
-        TextMeshProUGUI tmp = messageObj.AddComponent<TextMeshProUGUI>();
-        tmp.text = message;
-        tmp.fontSize = fontSize;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.color = textColor;
-
-        // 커스텀 폰트 적용
-        if (customFont != null)
+        if (useSprite && messageSprite != null)
         {
-            tmp.font = customFont;
+            // 스프라이트 모드
+            Image img = messageObj.AddComponent<Image>();
+            img.sprite = messageSprite;
+            img.preserveAspect = true; // 비율 유지
+        }
+        else
+        {
+            // 텍스트 모드
+            TextMeshProUGUI tmp = messageObj.AddComponent<TextMeshProUGUI>();
+            tmp.text = message;
+            tmp.fontSize = fontSize;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.color = textColor;
+
+            // 커스텀 폰트 적용
+            if (customFont != null)
+            {
+                tmp.font = customFont;
+            }
         }
 
         // CanvasGroup으로 페이드 효과
@@ -91,19 +106,38 @@ public class SimpleMessageTrigger : MonoBehaviour
         // 표시 시간 대기
         yield return new WaitForSeconds(displayDuration);
 
+        // 오브젝트가 이미 삭제되었는지 확인
+        if (obj == null || cg == null)
+        {
+            yield break;
+        }
+
         // 페이드 아웃
         float fadeTime = 0.5f;
         float elapsed = 0f;
 
         while (elapsed < fadeTime)
         {
+            // 페이드 중에도 오브젝트 존재 확인
+            if (obj == null || cg == null)
+            {
+                yield break;
+            }
+
             elapsed += Time.deltaTime;
             cg.alpha = 1f - (elapsed / fadeTime);
             yield return null;
         }
 
-        // 삭제
-        if (obj != null) Destroy(obj);
-        if (currentMessageUI == obj) currentMessageUI = null;
+        // 삭제 전 마지막 확인
+        if (obj != null)
+        {
+            Destroy(obj);
+        }
+
+        if (currentMessageUI == obj)
+        {
+            currentMessageUI = null;
+        }
     }
 }
