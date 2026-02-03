@@ -44,6 +44,10 @@ public class CutsceneManager : MonoBehaviour
     [Header("점프 애니메이션")]
     [SerializeField] private JumpAnimation jumpAnimation; // Inspector에서 할당
     [SerializeField] private float jumpAnimationDuration = 3f; // 점프 애니메이션 총 시간
+    [Header("줌아웃 시 활성화할 오브젝트")]
+    [SerializeField] private GameObject objectToActivateOnZoomOut;
+    [SerializeField] private float blinkDuration = 2f; // 깜박이는 총 시간
+    [SerializeField] private float blinkInterval = 0.2f; // 깜박임 간격 (켜짐/꺼짐 전환 속도)
 
     private GameObject[] currentSpriteSequence;
     private bool canGoToNextScene = false;
@@ -101,8 +105,6 @@ public class CutsceneManager : MonoBehaviour
             SetCameraToSprite(smallFrameSprite);
             Debug.Log("작은 프레임에 줌인 완료");
 
-            // 점프 애니메이션은 JumpAnimation의 Start()에서 자동 실행되므로
-            // 여기서는 그냥 대기만 하면 됨
             if (jumpAnimation != null)
             {
                 yield return new WaitForSeconds(jumpAnimationDuration);
@@ -111,7 +113,16 @@ public class CutsceneManager : MonoBehaviour
             yield return new WaitForSeconds(smallFrameWaitTime);
             Debug.Log("줌아웃 시작!");
 
-            yield return StartCoroutine(ZoomOutToSprite(bigFrameSprite));
+            // 줌아웃과 오브젝트 깜박임을 동시에 시작
+            Coroutine zoomCoroutine = StartCoroutine(ZoomOutToSprite(bigFrameSprite));
+
+            if (objectToActivateOnZoomOut != null)
+            {
+                StartCoroutine(BlinkThenActivateObject());
+            }
+
+            // 줌아웃 완료 대기
+            yield return zoomCoroutine;
             Debug.Log("줌아웃 완료!");
         }
         else
@@ -126,6 +137,42 @@ public class CutsceneManager : MonoBehaviour
         dialogueManager.OnDialogueComplete = OnDialogueFinished;
         SetDialoguesByDay();
         dialogueManager.StartDialogue();
+    }
+
+    // 깜박이다가 완전히 켜지는 함수
+    private IEnumerator BlinkThenActivateObject()
+    {
+        if (objectToActivateOnZoomOut == null) yield break;
+
+        float elapsedTime = 0f;
+        bool isOn = false;
+
+        Debug.Log($"{blinkDuration}초 동안 깜박임 시작!");
+
+        // 지정된 시간 동안 깜박임
+        while (elapsedTime < blinkDuration)
+        {
+            isOn = !isOn;
+            objectToActivateOnZoomOut.SetActive(isOn);
+
+            yield return new WaitForSeconds(blinkInterval);
+            elapsedTime += blinkInterval;
+        }
+
+        // 최종적으로 완전히 켜기
+        objectToActivateOnZoomOut.SetActive(true);
+        Debug.Log("깜박임 종료, 오브젝트 완전 활성화!");
+    }
+    // 새 함수 추가
+    private IEnumerator ActivateObjectAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (objectToActivateOnZoomOut != null)
+        {
+            objectToActivateOnZoomOut.SetActive(true);
+            Debug.Log($"줌아웃 시작 {delay}초 후 오브젝트 활성화!");
+        }
     }
     private void SetDialoguesByDay()
     {
@@ -198,15 +245,7 @@ public class CutsceneManager : MonoBehaviour
             }
         }
 
-        // 모든 스프라이트 표시 완료 후 점프 애니메이션 (1번만)
-        if (jumpAnimation != null)
-        {
-            jumpAnimation.StartSequenceJump(); // 1번 점프
-
-            // 점프 1번 시간만큼 대기
-            float jumpTime = jumpAnimation.GetJumpTime(1);
-            yield return new WaitForSeconds(jumpTime);
-        }
+        // 점프 애니메이션 부분 삭제됨
 
         int currentDay = SceneTransitionManager.Instance.currentDay;
 
