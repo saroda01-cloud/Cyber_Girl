@@ -26,8 +26,18 @@ public class SceneTransitionManager : MonoBehaviour
 
     public void OnMapCleared()
     {
-        Debug.Log($"[SceneTransitionManager] OnMapCleared 호출됨! Instance는 null? {Instance == null}");
-        LoadScene("Venue");
+        Debug.Log($"[SceneTransitionManager] OnMapCleared 호출됨! Current Day: {currentDay}");
+
+        // Map5 클리어 시 바로 Ending으로
+        if (currentDay == 5)
+        {
+            Debug.Log("Map5 클리어! 엔딩으로 이동");
+            LoadScene("Ending");
+        }
+        else
+        {
+            LoadScene("Venue");
+        }
     }
 
     // Venue에서 First로 (Day 증가)
