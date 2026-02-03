@@ -25,9 +25,13 @@ public class DayDirector : MonoBehaviour
     [SerializeField] private Vector3 cameraLocalMove = new Vector3(0f, 0f, 0f);
     [SerializeField] private float cameraMoveTime = 0.25f; // 부드럽게 이동 시간(원하면 0으로 즉시)
 
-    [Header("Day2 NPC 자동 이동")]
-    [SerializeField] private float NPCMoveSpeedX = -3f;  // 오른쪽 이동 속도
+    [Header("Day2 NPC 왼쪽 자동 이동")]
+    [SerializeField] private float NPCMoveSpeedX = -3f;  // 왼쪽 이동 속도
     [SerializeField] private float NPCMoveDuration = 2f;   // 몇 초 이동할지
+
+    [Header("Day2 NPC 오른쪽 자동 이동")]
+    [SerializeField] private float NPCMoveSpeedX2 = -3f;  // 왼쪽 이동 속도
+    [SerializeField] private float NPCMoveDuration2 = 2f;   // 몇 초 이동할지
 
     private bool day2Played = false;
 
@@ -70,7 +74,7 @@ public class DayDirector : MonoBehaviour
     {
         Debug.Log("[DayDirector] PlayDay2Sequence 시작!");
 
-        // 1) 플레이어 2초 이동
+        // 1) 플레이어 4초 이동 2초 기다리기
         yield return StartCoroutine(MovePlayerForSeconds(playerMoveDuration));
         Debug.Log("[DayDirector] 플레이어 이동 완료");
 
@@ -112,20 +116,24 @@ public class DayDirector : MonoBehaviour
 
         Transform camTr = mainCamera.transform;
 
-        // parent 변경 + 위치 세팅
-        camTr.SetParent(day2CameraParent, true);
-        camTr.localPosition = new Vector3(0, 0, -10f);
+        // parent 변경 + 로컬 기준으로 스냅(핵심: worldPositionStays = false)
+        camTr.SetParent(day2CameraParent, false);
+
+        // Anchor 기준으로 정확히 붙이기(2D면 보통 z=-10)
+        camTr.localPosition = new Vector3(0f, 0f, -10f);
+        camTr.localRotation = Quaternion.identity;
+        camTr.localScale = Vector3.one;
 
         // 카메라 로컬 이동
+        Vector3 start = camTr.localPosition;
+        Vector3 end = start + cameraLocalMove;
+
         if (cameraMoveTime <= 0f)
         {
-            camTr.localPosition += cameraLocalMove;
+            camTr.localPosition = end;
         }
         else
         {
-            Vector3 start = camTr.localPosition;
-            Vector3 end = start + cameraLocalMove;
-
             float ct = 0f;
             while (ct < cameraMoveTime)
             {
@@ -136,6 +144,7 @@ public class DayDirector : MonoBehaviour
             }
             camTr.localPosition = end;
         }
+
 
         // NPC 이동
         if (NPCRigidbody != null)
@@ -158,6 +167,32 @@ public class DayDirector : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
 
+            if (NPCAnimator != null)
+                NPCAnimator.SetBool("isWalk", false);
+
+            NPCRigidbody.linearVelocity = Vector2.zero;
+            NPCRigidbody.angularVelocity = 0f;
+        }
+
+        if (NPCRigidbody != null)
+        {
+            // NPC 방향(실제 이동 방향 기준)
+            if (NPCSprite != null)
+                NPCSprite.flipX = (NPCMoveSpeedX2 < 0f);
+
+            // 걷기 애니메이션 ON
+            if (NPCAnimator != null)
+                NPCAnimator.SetBool("isWalk", true);
+            float t3 = 0f;
+            while (t3 < NPCMoveDuration2)
+            {
+                Vector2 nextPos2 = NPCRigidbody.position + Vector2.right * NPCMoveSpeedX2 * Time.fixedDeltaTime;
+                NPCRigidbody.MovePosition(nextPos2);
+
+                t3 += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+
             // 걷기 애니메이션 OFF
             if (NPCAnimator != null)
                 NPCAnimator.SetBool("isWalk", false);
@@ -165,6 +200,7 @@ public class DayDirector : MonoBehaviour
             NPCRigidbody.linearVelocity = Vector2.zero;
             NPCRigidbody.angularVelocity = 0f;
         }
+        
     }
 
 }
