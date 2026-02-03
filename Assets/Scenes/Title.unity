@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -4, y: 204}
+  m_AnchoredPosition: {x: 10, y: 292}
   m_SizeDelta: {x: 291.6688, y: 39.067017}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &257224468
@@ -711,6 +711,7 @@ GameObject:
   - component: {fileID: 1724240844}
   - component: {fileID: 1724240843}
   - component: {fileID: 1724240846}
+  - component: {fileID: 1724240847}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -836,6 +837,22 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1724240847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724240842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbab18e10d911f54dab649717c0d82a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AspectRatioManager
+  targetAspect: 1.7777778
+  forceFullscreen: 1
+  targetWidth: 1920
+  targetHeight: 1080
 --- !u!1 &1764650126
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,6 +865,7 @@ GameObject:
   - component: {fileID: 1764650129}
   - component: {fileID: 1764650128}
   - component: {fileID: 1764650127}
+  - component: {fileID: 1764650131}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -938,6 +956,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1764650131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764650126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2265266690d79c948a26514fe5e31064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasSafeArea
 --- !u!1 &1774405938
 GameObject:
   m_ObjectHideFlags: 0

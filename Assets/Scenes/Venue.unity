@@ -3706,6 +3706,7 @@ GameObject:
   - component: {fileID: 1171130996}
   - component: {fileID: 1171130995}
   - component: {fileID: 1171130994}
+  - component: {fileID: 1171130998}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3797,6 +3798,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1171130998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171130993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2265266690d79c948a26514fe5e31064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasSafeArea
 --- !u!1 &1180240435
 GameObject:
   m_ObjectHideFlags: 0
@@ -4018,6 +4031,7 @@ GameObject:
   - component: {fileID: 1196797010}
   - component: {fileID: 1196797009}
   - component: {fileID: 1196797012}
+  - component: {fileID: 1196797013}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4165,6 +4179,22 @@ MonoBehaviour:
   groundY: -16
   clampGroundY: 1
   keepLocalZ: 1
+--- !u!114 &1196797013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196797007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbab18e10d911f54dab649717c0d82a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AspectRatioManager
+  targetAspect: 1.7777778
+  forceFullscreen: 1
+  targetWidth: 1920
+  targetHeight: 1080
 --- !u!1 &1484554303
 GameObject:
   m_ObjectHideFlags: 0
