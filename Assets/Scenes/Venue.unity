@@ -1459,16 +1459,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -1, y: -5, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 8
-      m_TileSpriteIndex: 4
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: -43, y: 1, z: 0}
     second:
       serializedVersion: 2
@@ -2127,7 +2117,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 7f839d68c1d819a43a66e4ffd8bb116a, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 315cb5cc8f1878749bdb46ff333618ca, type: 2}
-  - m_RefCount: 45
+  - m_RefCount: 44
     m_Data: {fileID: 11400000, guid: 8b2453d52eda70a45bba0bb101ad0289, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
@@ -2138,7 +2128,7 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: f91de35898c340f42bc6a240019e4d3b, type: 3}
   - m_RefCount: 56
     m_Data: {fileID: 21300000, guid: a9ac430a75292e14daec806d165dce4c, type: 3}
-  - m_RefCount: 45
+  - m_RefCount: 44
     m_Data: {fileID: 21300000, guid: f313e99f38830ee4b88d6242f85a1d29, type: 3}
   - m_RefCount: 10
     m_Data: {fileID: 21300000, guid: 9332591b65ae15e4db381c228487b55a, type: 3}
@@ -2149,7 +2139,7 @@ Tilemap:
   - m_RefCount: 5
     m_Data: {fileID: 21300000, guid: 2ae9943fb91d1b740ab4c8081aacd10b, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 189
+  - m_RefCount: 188
     m_Data:
       e00: 1
       e01: 0
@@ -2168,7 +2158,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 189
+  - m_RefCount: 188
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2388,6 +2378,7 @@ MonoBehaviour:
   jumpForce: 0
   coyoteTime: 0.15
   jumpBufferTime: 0.15
+  minJumpTime: 0.2
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   dialogTest: {fileID: 1901856852}
@@ -3896,7 +3887,7 @@ MonoBehaviour:
     name: 
     dialogue: "\u201C\u2026\u2026?\u201D"
     dialogueSprite: {fileID: 0}
-    expression: 2
+    expression: 0
     sceneSpriteRenderer: {fileID: 655032508}
     sceneSpriteVisibleOnlyThisLine: 1
   - speakerIndex: 1
@@ -4117,6 +4108,8 @@ MonoBehaviour:
   zoomOutSize: 10
   smooth: 5
   groundY: -16
+  clampGroundY: 1
+  keepLocalZ: 1
 --- !u!1 &1484554303
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,7 +4666,7 @@ MonoBehaviour:
     expression: 0
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
-  - speakerIndex: 1
+  - speakerIndex: 0
     name: 
     dialogue: "\u201C\uB124 \uC5BC\uAD74 \uBCF4\uB2C8\uAE4C, \uC774\uC0C1\uD558\uAC8C
       \uB2E4 \uAD1C\uCC2E\uC544\uC838.\u201D"
@@ -4699,7 +4692,7 @@ MonoBehaviour:
     name: 
     dialogue: "\u201C\u2026\uC815\uB9D0?\u201D\r\n"
     dialogueSprite: {fileID: 0}
-    expression: 4
+    expression: 1
     sceneSpriteRenderer: {fileID: 0}
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 1
@@ -4786,12 +4779,14 @@ MonoBehaviour:
   NPCAnimator: {fileID: 1715841567}
   NPCSprite: {fileID: 1715841570}
   day2CameraParent: {fileID: 570081858}
-  playerMoveSpeedX: -3
-  playerMoveDuration: 2
+  playerMoveSpeedX: -5
+  playerMoveDuration: 4
   cameraLocalMove: {x: 0, y: 0, z: 0}
-  cameraMoveTime: 0.8
-  NPCMoveSpeedX: 3
-  NPCMoveDuration: 2
+  cameraMoveTime: 0.25
+  NPCMoveSpeedX: -2
+  NPCMoveDuration: 0.2
+  NPCMoveSpeedX2: 3
+  NPCMoveDuration2: 3
 --- !u!4 &1842113617
 Transform:
   m_ObjectHideFlags: 0
@@ -4840,12 +4835,12 @@ MonoBehaviour:
   talkTarget: {fileID: 1715841571}
   startDistance: 3
   use2DDistance: 1
-  currentDay: 2
+  currentDay: 4
   dialogsByDay:
   - {fileID: 1180240436}
   - {fileID: 2007467573}
   - {fileID: 1005637241}
-  - {fileID: 1005637241}
+  - {fileID: 1756162086}
 --- !u!4 &1901856853
 Transform:
   m_ObjectHideFlags: 0
@@ -5051,7 +5046,7 @@ MonoBehaviour:
   - speakerIndex: 1
     name: 
     dialogue: 
-    dialogueSprite: {fileID: 0}
+    dialogueSprite: {fileID: 21300000, guid: 5f7a5f12b44528b4f9a5e4f7ae1b059e, type: 3}
     expression: 1
     sceneSpriteRenderer: {fileID: 1669569473}
     sceneSpriteVisibleOnlyThisLine: 1
@@ -5062,7 +5057,7 @@ MonoBehaviour:
     expression: 3
     sceneSpriteRenderer: {fileID: 1669569473}
     sceneSpriteVisibleOnlyThisLine: 1
-  - speakerIndex: 0
+  - speakerIndex: 1
     name: 
     dialogue: 
     dialogueSprite: {fileID: 21300000, guid: 5f7a5f12b44528b4f9a5e4f7ae1b059e, type: 3}
@@ -5086,7 +5081,7 @@ MonoBehaviour:
     sceneSpriteVisibleOnlyThisLine: 0
   - speakerIndex: 0
     name: 
-    dialogue: "\u201C\uC544, \uC544\uB2C8\u2026 \uB108\uBB34 \uAC11\uC790\uAE30\uC600\uC9C0.\u201D\r\n"
+    dialogue: "\u201C\uC544, \uC544\uB2C8\u2026 \uB108\uBB34 \uAC11\uC790\uAE30\uC600\uC9C0....\u201D\r\n"
     dialogueSprite: {fileID: 0}
     expression: 3
     sceneSpriteRenderer: {fileID: 0}
