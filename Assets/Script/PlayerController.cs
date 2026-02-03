@@ -45,6 +45,12 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame();
+            return;
+        }
+
         if (isDead || !movementEnabled) return; // movementEnabled 체크 추가
 
         // 좌우 입력
@@ -175,5 +181,15 @@ public class PlayerController : MonoBehaviour
         playerRigidbody.linearVelocity = Vector2.zero;
         Debug.Log("Player Died!");
         Destroy(gameObject);
+    }
+    private void QuitGame()
+    {
+        // 빌드에서는 종료
+        Application.Quit();
+
+#if UNITY_EDITOR
+        // 에디터에서는 플레이 모드 종료
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
